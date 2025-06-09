@@ -82,11 +82,12 @@ Quy trình này mô tả các bước chi tiết để tạo ra một video gi�
 
 **Prompt Tạo Slide LaTeX:**
 
-> "Lấy file script sau khi Claude chỉnh sửa làm trụ cột, giờ bạn hãy sửa lại code slide bằng LaTeX cho phù hợp và thêm các mốc thời gian chuyển slide. Cụ thể là:
+>Lấy file script sau làm trụ cột, giờ bạn hãy cho tôi slide bằng code LaTeX cho phù hợp với script và thêm các mốc thời gian chuyển slide. Cụ thể là:
+>* Chuyển tài liệu thành slide trình chiếu dạng widescreen (16:9).
+>* Slide phải có giao diện hiện đại, dễ nhìn, chuyên nghiệp cho màn hình laptop.
+>* Dùng LaTeX Beamer với gói tiếng Việt để tạo slide, đảm bảo các câu từ đều dễ đọc và phù hợp với ngữ cảnh giảng dạy
 >
-> * Chuyển tài liệu thành slide trình chiếu dạng widescreen (16:9).
-> * Slide phải có giao diện hiện đại, dễ nhìn, chuyên nghiệp cho màn hình laptop.
-> * Dùng LaTeX Beamer với gói tiếng Việt để tạo slide, đảm bảo các câu từ đều dễ đọc và phù hợp với ngữ cảnh giảng dạy."
+>làm slide code latex nhiều ảnh minh họa, nhiều slide lên, hiển thị các bước để hình dung, nhưng nhớ phải cho nó khớp với script và mốc thời gian chuyển slide
 
 ## **7. Tạo Mốc Thời Gian Chuyển Slide**
 
