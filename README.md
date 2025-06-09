@@ -88,6 +88,7 @@ Quy trình này mô tả các bước chi tiết để tạo ra một video gi�
 >* Dùng LaTeX Beamer với gói tiếng Việt để tạo slide, đảm bảo các câu từ đều dễ đọc và phù hợp với ngữ cảnh giảng dạy
 >
 >làm slide code latex nhiều ảnh minh họa, nhiều slide lên, hiển thị các bước để hình dung, nhưng nhớ phải cho nó khớp với script và mốc thời gian chuyển slide
+>Và mốc thời gian chuyển slide bạn cần xác định nó sau khi hết câu nói về chủ dề trước đó
 
 ## **7. Tạo Mốc Thời Gian Chuyển Slide**
 
