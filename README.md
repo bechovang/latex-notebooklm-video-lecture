@@ -111,6 +111,8 @@ Quy trình này mô tả các bước chi tiết để tạo ra một video gi�
 >
 > File này sẽ dùng để đồng bộ với video, cho biết thời gian chuyển slide từng bước."
 
+## **7.1. Dùng Qwen sửa lại lỗi latex**
+
 ## **8. Tạo Video**
 
 * **Tạo Video Từ Slide và Audio**:
