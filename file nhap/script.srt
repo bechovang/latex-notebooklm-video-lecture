@@ -1,0 +1,387 @@
+1
+00:00:00,000 --> 00:00:05,679
+Xin chào quý vị. Hôm nay chúng ta sẽ cùng đi sâu vào một kỹ thuật của đại số tuyến tính.
+
+2
+00:00:05,679 --> 00:00:11,279
+Đó là chéo hóa ma trận. Nghe tên thì có vẻ hơi phức tạp một chút nhỉ.
+
+3
+00:00:11,279 --> 00:00:15,679
+Nhưng mà ừ, các tài liệu mình xem qua, thì lại ví von nó khá hay.
+
+4
+00:00:15,679 --> 00:00:22,679
+Giống như mình cắt chéo một cái ma trận rắc rối để nó trở nên nhẹ nhàng, dễ xơi hơn nhiều.
+
+5
+00:00:22,679 --> 00:00:28,359
+Mục tiêu hôm nay là chúng ta sẽ cùng làm rõ ý tưởng cốt lõi đằng sau việc nén thông tin ma trận này là gì.
+
+6
+00:00:28,359 --> 00:00:30,359
+Dựa trên các ghi chú và tài liệu có sẵn.
+
+7
+00:00:30,359 --> 00:00:34,240
+Vâng, đúng thế. Cái việc đơn giản hóa này thực sự quan trọng đấy.
+
+8
+00:00:34,240 --> 00:00:41,719
+Vì ma trận trong thực tế, ví dụ như trong phân tích dữ liệu, trí tuệ nhân tạo hay là mô phỏng vật lý, nó có thể cực kỳ lớn.
+
+9
+00:00:41,719 --> 00:00:43,480
+Có khi hàng trăm con số.
+
+10
+00:00:43,480 --> 00:00:48,719
+Nên là việc lưu trữ rồi tính toán trực tiếp trên những ma trận đó, nó tốn kém tài nguyên lắm.
+
+11
+00:00:48,719 --> 00:00:51,480
+Tốn bộ nhớ, tốn thời gian xử lý của máy tính.
+
+12
+00:00:51,479 --> 00:00:59,359
+Thì việc chéo hóa này, nó có thể hình dung nôm na như mình nén một file zip, hay là một file PDF khổng lồ vậy.
+
+13
+00:00:59,359 --> 00:01:02,039
+Để máy tính nó xử lý dễ dàng hơn.
+
+14
+00:01:02,039 --> 00:01:03,640
+Ah, dạ thế.
+
+15
+00:01:03,640 --> 00:01:10,640
+Vậy thì cụ thể, các tài liệu họ mô tả cái quy trình nén thông tin này như thế nào về mặt kỹ thuật đã.
+
+16
+00:01:10,640 --> 00:01:13,840
+Làm sao để biến ma trận gốc A thành dạng đơn giản hơn.
+
+17
+00:01:13,840 --> 00:01:15,159
+Ah vâng.
+
+18
+00:01:15,159 --> 00:01:20,959
+Cái mấu chốt ở đây là mình phải tìm ra được cái gọi là bản chất của ma trận A đó.
+
+19
+00:01:21,079 --> 00:01:25,119
+Các tài liệu có chỉ ra là chúng ta dùng một cái phép biến đổi khá đặc biệt.
+
+20
+00:01:25,119 --> 00:01:27,599
+P^(-1) nhân A nhân P bằng D.
+
+21
+00:01:27,599 --> 00:01:31,479
+Đấy, thì trong công thức này, D là một ma trận đường chéo.
+
+22
+00:01:31,479 --> 00:01:35,239
+Rất đơn giản, nó chỉ có các số khác không nằm trên đường chéo chính thôi.
+
+23
+00:01:35,239 --> 00:01:39,239
+Và những con số đó chính là các giá trị riêng của ma trận A ban đầu.
+
+24
+00:01:39,239 --> 00:01:44,919
+Còn P, ah, P là ma trận được tạo thành từ các vector riêng tương ứng của A.
+
+25
+00:01:44,919 --> 00:01:49,039
+Nó giống như là một cái chìa khóa để mình mã hóa và giải mã ma trận.
+
+26
+00:01:49,080 --> 00:01:53,560
+Ah, chìa khóa P và cả ma trận nghịch đảo P^(-1) nữa.
+
+27
+00:01:53,560 --> 00:01:58,719
+Thế có nghĩa là ma trận P này nó phải đảo ngược được, đúng không ạ?
+
+28
+00:01:58,719 --> 00:02:01,960
+Chính xác, chính xác, để cái phép biến đổi này hoạt động.
+
+29
+00:02:01,960 --> 00:02:06,040
+Và quan trọng là để có thể khôi phục lại ma trận A ban đầu ấy.
+
+30
+00:02:06,040 --> 00:02:09,360
+Bằng công thức A bằng P nhân D nhân P^(-1) đấy.
+
+31
+00:02:09,360 --> 00:02:11,560
+Thì ma trận P bắt buộc phải khả nghịch.
+
+32
+00:02:11,560 --> 00:02:13,400
+Mà muốn P khả nghịch thì...
+
+33
+00:02:13,920 --> 00:02:22,280
+Ma trận A ban đầu phải có đủ số lượng vector riêng độc lập tuyến tính để mà sắp thành ma trận P đấy.
+
+34
+00:02:22,280 --> 00:02:24,520
+Không phải ma trận nào cũng làm được việc này đâu ạ.
+
+35
+00:02:24,520 --> 00:02:32,560
+Nhưng mà khi mà làm được rồi, thì ma trận D này là cái bản nén tối giản nhất, nó chỉ giữ lại những giá trị cốt lõi trên đường chéo thôi.
+
+36
+00:02:32,560 --> 00:02:36,280
+Vậy cái lợi ích thực sự của việc có được ma trận đường chéo D này là gì ạ?
+
+37
+00:02:36,280 --> 00:02:39,960
+Tại sao lại cần phải tốn công biến đổi như vậy?
+
+38
+00:02:39,960 --> 00:02:43,360
+Ah, lợi ích lớn nhất là ở khâu tính toán về sau.
+
+39
+00:02:43,640 --> 00:02:45,600
+Rất lớn, tôi lấy ví dụ nhé.
+
+40
+00:02:45,600 --> 00:02:48,800
+Chẳng hạn như mình cần tính lũy thừa bậc cao của ma trận A.
+
+41
+00:02:48,800 --> 00:02:51,560
+Tức là tính A mũ n với n rất lớn.
+
+42
+00:02:51,560 --> 00:02:55,520
+Thay vì mình phải nhân A với chính nó n lần, cực kỳ phức tạp và tốn kém.
+
+43
+00:02:55,520 --> 00:02:57,600
+Thì mình chỉ cần tính D mũ n thôi.
+
+44
+00:02:57,639 --> 00:03:03,120
+Mà vì D là ma trận đường chéo nên việc tính D mũ n nó cực kỳ đơn giản.
+
+45
+00:03:03,120 --> 00:03:06,039
+Chỉ là lấy từng số trên đường chéo mũ n lên là xong.
+
+46
+00:03:06,039 --> 00:03:07,879
+Sau đó thì mình dùng công thức ngược lại.
+
+47
+00:03:07,879 --> 00:03:11,359
+A^n bằng P nhân D^n nhân P^(-1) là có kết quả cuối cùng.
+
+48
+00:03:11,359 --> 00:03:14,079
+Nhanh hơn và tiết kiệm tài nguyên hơn rất rất nhiều.
+
+49
+00:03:14,079 --> 00:03:16,680
+Vâng, trong các tài liệu tham khảo mình có xem qua,
+
+50
+00:03:16,680 --> 00:03:19,639
+hình như có một ví dụ cụ thể để dễ hình dung hơn đúng không anh?
+
+51
+00:03:19,639 --> 00:03:20,560
+Ah, đúng rồi.
+
+52
+00:03:20,560 --> 00:03:23,000
+Có một ví dụ khá là đơn giản nhưng mà hay.
+
+53
+00:03:23,000 --> 00:03:26,840
+Ví dụ set ma trận A bằng ma trận [[4,1],[0,2]].
+
+54
+00:03:27,000 --> 00:03:31,680
+Ma trận này thì người ta tính được giá trị riêng là 4 và 2.
+
+55
+00:03:31,680 --> 00:03:36,800
+Từ các vector riêng tương ứng, mình lập được ma trận P bằng ma trận [[1,1],[0,1]].
+
+56
+00:03:36,800 --> 00:03:43,000
+Khi đó, cái ma trận đường chéo D tương ứng sẽ là ma trận D bằng ma trận [[4,0],[0,2]].
+
+57
+00:03:43,000 --> 00:03:45,879
+Chỉ chứa giá trị riêng trên đường chéo thôi đấy.
+
+58
+00:03:45,879 --> 00:03:52,800
+Và nếu mình thử tính ngược lại, lấy P nhân D nhân P^(-1) thì kết quả nó sẽ quay về đúng ma trận A ban đầu luôn.
+
+59
+00:03:52,800 --> 00:03:55,960
+Ví dụ này nó minh họa rất rõ cái cơ chế hoạt động của việc chéo hóa.
+
+60
+00:03:56,000 --> 00:04:00,520
+Ah hay quá. Thật thú vị khi một công cụ toán học có vẻ khá là...
+
+61
+00:04:00,520 --> 00:04:03,760
+Trừu tượng như thế này lại hữu ích đến vậy.
+
+62
+00:04:03,760 --> 00:04:07,760
+Các nguồn tài liệu mình đọc có đề cập đến ứng dụng thực tế của nó ở đâu không ạ.
+
+63
+00:04:07,760 --> 00:04:09,280
+Oh, nhiều lắm ạ.
+
+64
+00:04:09,280 --> 00:04:10,240
+Rất nhiều.
+
+65
+00:04:10,240 --> 00:04:13,879
+Cái kỹ thuật này nó quan trọng cực kỳ trong ví dụ như machine learning.
+
+66
+00:04:13,879 --> 00:04:16,280
+Đặc biệt là trong các thuật toán giảm chiều dữ liệu.
+
+67
+00:04:16,280 --> 00:04:19,759
+Rồi trong vật lý nữa để phân tích các hệ dao động tuyến tính.
+
+68
+00:04:19,759 --> 00:04:21,759
+Hay là trong xử lý tín hiệu số.
+
+69
+00:04:21,839 --> 00:04:27,439
+Nói chung là vì bất cứ đâu mà mình cần phân tích cái cấu trúc ẩn bên trong ma trận.
+
+70
+00:04:27,439 --> 00:04:30,959
+Hoặc là cần tăng tốc các phép tính lặp đi lặp lại trên các ma trận lớn.
+
+71
+00:04:30,959 --> 00:04:33,560
+Thì chéo hóa nó đều có thể phát huy tác dụng.
+
+72
+00:04:33,560 --> 00:04:35,839
+Nó giống như mình dọn dẹp nhà cửa vậy mà.
+
+73
+00:04:35,839 --> 00:04:39,959
+Sắp xếp lại đồ đạc, chỉ giữ lại những thứ cốt yếu, gọn nhẹ, dễ quản lý.
+
+74
+00:04:39,959 --> 00:04:42,800
+Thì sau này mình tìm kiếm hay sử dụng lại nó hiệu quả hơn nhiều.
+
+75
+00:04:42,800 --> 00:04:43,920
+Thế à.
+
+76
+00:04:43,920 --> 00:04:46,399
+Như vậy là cái việc biến đổi phức tạp ban đầu,
+
+77
+00:04:46,399 --> 00:04:49,199
+thực chất là để đơn giản hóa cho các công việc tính toán về sau.
+
+78
+00:04:49,199 --> 00:04:50,199
+Vâng.
+
+79
+00:04:50,199 --> 00:04:52,680
+Có thể nói nôm na là như vậy.
+
+80
+00:04:52,680 --> 00:04:57,719
+Tóm lại thì ừ, chéo hóa là một phương pháp giúp biến đổi một ma trận A,
+
+81
+00:04:57,719 --> 00:04:58,879
+có thể là phức tạp,
+
+82
+00:04:58,879 --> 00:05:01,560
+thành một ma trận đường chéo D đơn giản hơn nhiều.
+
+83
+00:05:01,560 --> 00:05:03,360
+Thông qua việc sử dụng ma trận P,
+
+84
+00:05:03,360 --> 00:05:06,560
+cái ma trận chứa các vector riêng làm chìa khóa.
+
+85
+00:05:06,560 --> 00:05:10,599
+Hai công thức then chốt cần nhớ là P^(-1)AP bằng D,
+
+86
+00:05:10,599 --> 00:05:15,599
+để nén lại và A bằng P nhân D nhân P^(-1) để giải nén ra.
+
+87
+00:05:15,599 --> 00:05:17,000
+Lợi ích thì như đã nói,
+
+88
+00:05:17,000 --> 00:05:20,319
+là tiết kiệm tài nguyên tính toán và tăng tốc độ xử lý.
+
+89
+00:05:20,319 --> 00:05:23,680
+Tất nhiên, với điều kiện là ma trận A nó ừ.
+
+90
+00:05:23,680 --> 00:05:27,920
+Nó cho phép chúng ta tìm được đủ các vector riêng độc lập để tạo thành cái chìa khóa P này.
+
+91
+00:05:27,920 --> 00:05:31,240
+Ah, cái điểm cuối cùng anh vừa nói làm tôi nảy ra một thắc mắc.
+
+92
+00:05:31,240 --> 00:05:36,600
+Vậy nếu như một ma trận nó không có đủ vector riêng độc lập tuyến tính để tạo thành ma trận P,
+
+93
+00:05:36,600 --> 00:05:41,519
+thì suy ra là khi đó rõ ràng là việc chéo hóa như mình vừa bàn là không thể thực hiện được rồi.
+
+94
+00:05:41,519 --> 00:05:42,279
+Vậy ạ,
+
+95
+00:05:42,279 --> 00:05:46,599
+liệu có tồn tại những phương pháp nén hay đơn giản hóa ma trận nào khác không,
+
+96
+00:05:46,599 --> 00:05:48,639
+có thể tương tự như chéo hóa,
+
+97
+00:05:48,639 --> 00:05:50,519
+dành cho những trường hợp đặc biệt đó.
