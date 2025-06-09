@@ -78,7 +78,7 @@ Quy trình này mô tả các bước chi tiết để tạo ra một video gi�
 
 ## **6. Tạo Slide LaTeX**
 
-* Sau khi hoàn thành script, bạn sẽ **yêu cầu AI tạo slide** dưới dạng **LaTeX**, sử dụng các gói như Beamer để tạo bài giảng trực quan.
+* Sau khi hoàn thành script, bạn sẽ **yêu cầu AI tạo slide** dưới dạng **LaTeX**, sử dụng các gói như Beamer để tạo bài giảng trực quan. Đưa cho claude hoặc google AI studio
 
 **Prompt Tạo Slide LaTeX:**
 
