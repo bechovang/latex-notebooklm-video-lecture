@@ -34,11 +34,38 @@ Quy trình này mô tả các bước chi tiết để tạo ra một video gi�
 
 ## **2. AI Triển Khai Bài Giảng**
 
-*   **Mô tả Slide**: Sau khi AI hiểu nội dung, nó sẽ **tạo một bản mô tả slide** cho bài giảng, bao gồm:
+*   **Mô tả Slide**: Sau khi AI hiểu nội dung, nếu nó chưa hiểu thì bạn nói lại cho nó hiểu, nó hiểu rồi thì ta sẽ kêu nó **tạo một bản mô tả slide** cho bài giảng, bao gồm:
     *   Nội dung từng slide,
-    *   Script giảng dạy đi kèm (đây có thể là script ban đầu từ ý tưởng ở bước 1, hoặc do AI phát triển thêm),
-    *   Các chi tiết phụ như thời gian chuyển slide và các yếu tố thị giác.
+    *   Script giảng dạy đi kèm,
+    *   Các chi tiết phụ như tương tác, các yếu tố thị giác.
+**Prompt Cho AI:**
 
+>"Hãy biến chủ đề **[tôi vừa dạy cho bạn]** thành một bài giảng thực sự thú vị và dễ hiểu! Tôi muốn học sinh sau khi xem xong sẽ nghĩ: >"Wow, tại sao mình không biết điều này sớm hơn!"
+
+>**Hãy tạo cho tôi:**
+
+>**Mỗi slide cần có:**
+>- **Tiêu đề** cuốn hút (đừng nhàm chán kiểu "Bài 1: Giới thiệu...")
+>- **Nội dung** được kể như một câu chuyện có tình tiết
+>- **Lời thoại** của giảng viên - viết như đang nói chuyện với bạn bè, không phải đọc sách
+>- **Hình ảnh/Hoạt hình** mô tả - cụ thể và sinh động
+>- **Tương tác** - câu hỏi hoặc hoạt động khiến học sinh phải suy nghĩ
+>
+>**Một số gợi ý để làm bài hay:**
+>- Bắt đầu bằng một tình huống thực tế hoặc câu hỏi gây tò mò
+>- Sử dụng phép so sánh, ví dụ đời thường để giải thích khái niệm khó
+>- Có những "plot twist" - những điều bất ngờ khiến học sinh "aha!"
+>- Kết thúc bằng việc chỉ ra tầm quan trọng trong cuộc sống thực
+>
+>**Viết bằng giọng điệu:**
+>- Thân thiện, nhiệt huyết
+>- Có chút hài hước khi phù hợp
+>- Dễ hiểu nhưng không làm mất đi tính chuyên môn
+>- Tạo kết nối cảm xúc với học sinh
+>
+>Mục tiêu là sau 15 phút, học sinh không chỉ hiểu kiến thức mà còn cảm thấy hào hứng muốn tìm hiểu thêm!"
+
+Prompt này sẽ giúp AI tạo ra những bài giảng có hồn, không khô khan và thực sự thu hút học sinh.
 ## **3. Tạo Podcast Từ Script**
 
 *   **Sử dụng NotebookLM**:
