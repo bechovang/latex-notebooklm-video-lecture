@@ -5,7 +5,8 @@ Quy trình này mô tả các bước chi tiết để tạo ra một video gi�
 
 ## **1. Tạo Ý Tưởng Bài Giảng**
 
-*   **AI sẽ được cung cấp** ý tưởng bài giảng ban đầu.
+*  Dùng [Claude](https://claude.ai/) / [Google Ai Studio  ](https://aistudio.google.com/)
+* **AI sẽ được cung cấp** ý tưởng bài giảng ban đầu.
 *   **Mô tả**: Bạn sẽ cung cấp một số thông tin cơ bản về chủ đề bài giảng (ví dụ: "Giới thiệu về chéo hóa ma trận trong đại số tuyến tính").
 *   AI sẽ **triển khai các ý tưởng** đó và phát triển nội dung giảng dạy.
 
@@ -36,7 +37,8 @@ Phương pháp này giúp giảm thiểu bộ nhớ và tính toán hiệu quả
 
 ## **2. AI Triển Khai Bài Giảng**
 
-*   **Mô tả Slide**: Sau khi AI hiểu nội dung (nếu chưa hiểu, bạn cần giải thích lại), yêu cầu AI **tạo một bản mô tả slide** chi tiết cho bài giảng.
+* tiếp nối bước 1  
+* Sau khi AI hiểu nội dung (nếu chưa hiểu, bạn cần giải thích lại), yêu cầu AI **tạo một bản mô tả slide** chi tiết cho bài giảng.
 *   **Prompt Cho AI Triển Khai Bài Giảng:**
 ```
 "Hãy biến chủ đề **[TÊN CHỦ ĐỀ]** thành một bài giảng thực sự thú vị và dễ hiểu! Tôi muốn học sinh sau khi xem xong sẽ nghĩ: "Wow, tại sao mình không biết điều này sớm hơn!"
@@ -67,9 +69,8 @@ Mục tiêu là sau 15 phút, học sinh không chỉ hiểu kiến thức mà c
 *Prompt này sẽ giúp AI tạo ra những bài giảng có hồn, không khô khan và thực sự thu hút học sinh.*
 ## **3. Tạo Podcast Từ Script**
 
-*   **Sử dụng NotebookLM**:
+*   **Sử dụng [NotebookLM](https://notebooklm.google.com/)**:
     *   **NotebookLM** sẽ được sử dụng để chuyển nội dung script (được tạo ở Bước 2) thành một **podcast**.
--  https://notebooklm.google.com/
 ## **4. Chuyển Đổi Audio Thành Văn Bản Thô và Phụ Đề Thô (Sử dụng google-cloud-speech-to-text repo)**
 
 *   **Công cụ**: Sử dụng repository [bechovang/google-cloud-speech-to-text](https://github.com/bechovang/google-cloud-speech-to-text).
@@ -83,9 +84,9 @@ Mục tiêu là sau 15 phút, học sinh không chỉ hiểu kiến thức mà c
     *   `recognized_text.txt`: Chứa toàn bộ văn bản được chuyển đổi từ file âm thanh.
     *   `recognized_subtitles.srt`: File phụ đề, mỗi dòng là một từ cùng với thông tin thời gian bắt đầu và kết thúc của từ đó.
 
-## **5. Tạo Phụ Đề SRT Hoàn Chỉnh Bằng Claude AI**
+## **5. Tạo Phụ Đề SRT Hoàn Chỉnh Bằng  AI**
 
-*   **Công cụ**: Sử dụng **Claude AI**.
+*   Dùng [Claude](https://claude.ai/) / [Google Ai Studio  ](https://aistudio.google.com/)
 *   **Đầu vào**:
     1.  Nội dung file `recognized_text.txt` (văn bản thô từ Bước 4).
     2.  Nội dung file `recognized_subtitles.srt` (phụ đề thô từng từ một với thông tin thời gian từ Bước 4).
@@ -132,7 +133,8 @@ Mục tiêu là sau 15 phút, học sinh không chỉ hiểu kiến thức mà c
 
 ## **6. Tạo Slide LaTeX (và các prompt chỉnh sửa)**
 
-*   Sau khi có file SRT hoàn chỉnh (`final_script.srt` từ Mục 5), bạn sẽ sử dụng nội dung văn bản trong file SRT này làm script để **yêu cầu AI tạo slide ban đầu** dưới dạng **LaTeX**.
+*  Dùng [Claude](https://claude.ai/) / [Google Ai Studio  ](https://aistudio.google.com/)  
+* Sau khi có file SRT hoàn chỉnh (`final_script.srt` từ Mục 5), bạn sẽ sử dụng nội dung văn bản trong file SRT này làm script để **yêu cầu AI tạo slide ban đầu** dưới dạng **LaTeX**.
 
 **Prompt Tạo Slide LaTeX Ban Đầu:**
 ```text
@@ -146,12 +148,13 @@ Lấy nội dung văn bản (script) từ file phụ đề SRT hoàn chỉnh sau
 * Quan trọng nhất là nội dung trên từng slide phải khớp với lời giảng (từ script) và mốc thời gian chuyển slide được suy ra từ thời gian bắt đầu của các dòng trong file SRT.
 
 Đây là nội dung file phụ đề SRT hoàn chỉnh (`final_script.srt`):
-```srt
+
 [Dán nội dung file SRT mới, hoàn chỉnh từ Claude AI vào đây]
 ```
 
-Sau khi có mã LaTeX thô từ AI, hãy cung cấp nó để tôi có thể yêu cầu bạn chỉnh sửa thêm cho từng slide cụ thể.
-**Sau khi AI tạo ra code LaTeX ban đầu cho toàn bộ bài giảng, bạn sẽ xem xét và đưa các prompt sau để AI chỉnh sửa từng slide cụ thể (dựa trên ví dụ bạn cung cấp):**
+## **6.2 chỉnh sửa thêm cho từng slide cụ thể.**
+Sau khi AI tạo ra code LaTeX ban đầu cho toàn bộ bài giảng, bạn sẽ xem xét và đưa các prompt sau để AI chỉnh sửa từng slide cụ thể (dựa trên ví dụ bạn cung cấp):
+- Dùng [Qwen](https://chat.qwen.ai/)
 
 **Ví dụ 1 (Cho Slide cụ thể, ví dụ Slide 30 từ code AI tạo): Yêu cầu AI thay thế ảnh bằng hình vẽ LaTeX**
 
@@ -334,7 +337,7 @@ Sau khi có mã LaTeX thô từ AI, hãy cung cấp nó để tôi có thể yê
 
 ## **7. Tạo Mốc Thời Gian Chuyển Slide (Không cần thiết nếu dùng Camtasia với file SRT)**
 
-*   **Nguồn**: **File phụ đề SRT đã được hoàn thiện** (`final_script.srt` từ Mục 5).
+* **Nguồn**: **File phụ đề SRT đã được hoàn thiện** (`final_script.srt` từ Mục 5).
 *   **Sử dụng trực tiếp trong Camtasia**: Khi bạn nhập file `final_script.srt` vào Camtasia ở Bước 8, phần mềm sẽ tự động hiển thị phụ đề theo đúng thời gian. Bạn sẽ dựa vào sự xuất hiện của các dòng phụ đề (tương ứng với các câu nói) trên timeline của Camtasia để quyết định khi nào chuyển slide.
 *   **Không cần tạo file timestamp riêng**: Trừ khi có lý do đặc biệt, việc dựa vào file SRT trong Camtasia là đủ và trực quan.
 
