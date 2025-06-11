@@ -136,25 +136,284 @@ Mục tiêu là sau 15 phút, học sinh không chỉ hiểu kiến thức mà c
 *  Dùng [Claude](https://claude.ai/) / [Google Ai Studio  ](https://aistudio.google.com/)  
 * Sau khi có file SRT hoàn chỉnh (`final_script.srt` từ Mục 5), bạn sẽ sử dụng nội dung văn bản trong file SRT này làm script để **yêu cầu AI tạo slide ban đầu** dưới dạng **LaTeX**.
 
-**Prompt Tạo Slide LaTeX Ban Đầu:**
-```text
-Lấy nội dung văn bản (script) từ file phụ đề SRT hoàn chỉnh sau làm trụ cột, giờ bạn hãy cho tôi slide bằng code LaTeX cho phù hợp với script và thêm các mốc thời gian chuyển slide (dựa trên thời gian bắt đầu của mỗi dòng trong SRT). Cụ thể là:
-* Trích xuất nội dung văn bản từ file SRT này để làm script giảng dạy cho từng slide.
-* Chuyển script đó thành các slide trình chiếu dạng widescreen (16:9).
-* Mỗi slide phải có tiêu đề phù hợp với nội dung được trình bày trên slide đó.
-* Slide phải có giao diện hiện đại, dễ nhìn, chuyên nghiệp cho màn hình laptop.
-* Dùng LaTeX Beamer với gói tiếng Việt (ví dụ \usepackage[vietnamese]{babel} cho pdflatex hoặc thiết lập font tiếng Việt cho XeLaTeX/LuaLaTeX) để tạo slide, đảm bảo các câu từ đều dễ đọc và phù hợp với ngữ cảnh giảng dạy.
-* Làm slide code latex có thể có gợi ý ảnh minh họa (ví dụ: chú thích `GỢI Ý ẢNH: ...`), tạo nhiều slide nếu cần để nội dung không bị quá tải trên một slide, hiển thị các bước nếu có để dễ hình dung.
-* Quan trọng nhất là nội dung trên từng slide phải khớp với lời giảng (từ script) và mốc thời gian chuyển slide được suy ra từ thời gian bắt đầu của các dòng trong file SRT.
+**Prompt 1: Prompt LaTeX Beamer Chuyên Nghiệp (tự kiếm hình về chèn vào)**
 
-Đây là nội dung file phụ đề SRT hoàn chỉnh (`final_script.srt`):
+```
+# Prompt LaTeX Beamer Chuyên Nghiệp
 
-[Dán nội dung file SRT mới, hoàn chỉnh từ Claude AI vào đây]
+Bạn là một chuyên gia LaTeX Beamer. Nhiệm vụ của bạn là tạo một tệp trình chiếu LaTeX Beamer (`.tex`) hoàn chỉnh dựa trên kịch bản được cung cấp (trích xuất từ file SRT) và các mốc thời gian.
+
+## Đầu vào:
+
+1. **File Phụ đề SRT (hoặc nội dung của nó):** Chứa lời thoại và mốc thời gian chính xác
+2. **Kịch bản Văn bản Thô (Tùy chọn):** Toàn bộ nội dung văn bản từ file SRT
+
+## Yêu cầu đầu ra (Tệp `.tex`):
+
+### 1. Template Cấu Trúc Bắt Buộc:
+
+
+\documentclass[169,vietnamese]{beamer} % 16:9 aspect ratio, Vietnamese language
+
+% GÓI CƠ BẢN
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage{babel}
+\usepackage{amsmath, amssymb, amsfonts} % Gói toán học
+\usepackage{graphicx} % Gói chèn ảnh
+
+% GIAO DIỆN HIỆN ĐẠI
+\usetheme{metropolis} % Theme hiện đại
+% \usecolortheme{beaver} % Tùy chọn màu sắc (có thể bỏ comment nếu cần)
+
+% THÔNG TIN BÀI TRÌNH BÀY
+\title{[Tiêu đề chính từ nội dung]}
+\subtitle{[Tiêu đề phụ phù hợp]}
+\author{[Tên người trình bày]}
+\date{\today}
+\institute{[Tên tổ chức/khóa học]}
+
+% XÓA BIỂU TƯỢNG ĐIỀU HƯỚNG
+\beamertemplatenavigationsymbolsempty
+
+% SLIDE ĐẦU TIÊN - TIÊU ĐỀ
+\begin{document}
+{ % Mở đầu slide tiêu đề
+\setbeamercolor{background canvas}{bg=blue!10} % Màu nền nhẹ
+\begin{frame}[plain] % plain để không có header/footer
+    \titlepage
+\end{frame}
+}
+
+
+### 2. Cấu trúc Slide:
+
+- **Mốc thời gian:** Trước mỗi slide, thêm comment: `%% Chuyển slide: [timestamp từ SRT]`
+- **Tiêu đề slide:** Mỗi `\begin{frame}` phải có `\frametitle{...}` rõ ràng
+- **Layout columns:** Sử dụng `\begin{columns}[T]` để chia không gian cho text và ảnh:
+    
+    
+    \begin{columns}[T]    \begin{column}{0.6\textwidth}        % Nội dung text    \end{column}    \begin{column}{0.4\textwidth}        % Gợi ý ảnh và caption    \end{column}\end{columns}
+    
+    
+
+### 3. Định dạng Nội dung:
+
+- Sử dụng `\begin{itemize}` với `\item` cho các điểm chính
+- Sử dụng `\textbf{...}` để nhấn mạnh từ khóa quan trọng
+- Đảm bảo văn phong trôi chảy, phù hợp giảng dạy
+
+### 4. Gợi ý Hình ảnh:
+
+- **Sử dụng placeholder:** `\includegraphics[width=\linewidth]{placeholder.png}` cho tất cả ảnh
+- **Gợi ý chi tiết:** Đặt comment `% GỢI Ý ẢNH: [Mô tả chi tiết hình ảnh]` ngay dưới includegraphics
+- **Thêm caption:** Sử dụng `\caption{...}` để mô tả ngắn gọn
+- **Người dùng tự tìm ảnh** theo gợi ý và thay thế placeholder
+- **Ví dụ:**
+    
+    
+    \centering\includegraphics[width=\linewidth]{placeholder.png}% GỢI Ý ẢNH: Sơ đồ minh họa quá trình chéo hóa ma trận với các bước từ ma trận gốc đến ma trận chéo\caption{Quá trình chéo hóa}
+    
+    
+
+### 5. Ví dụ Template Slide:
+
+
+%% Chuyển slide: 00:00:17,600
+% SLIDE 2: KHÁI NIỆM CƠ BẢN
+\begin{frame}
+    \frametitle{Khái Niệm Cơ Bản}
+    \begin{columns}[T]
+        \begin{column}{0.6\textwidth}
+            \begin{itemize}
+                \item Mục tiêu: Xem các khái niệm này liên kết với nhau thế nào
+                \item \textbf{Ví dụ đơn giản:} Trên bàn có các đồ vật
+                \item Nếu chỉ kể tên chúng ra thôi thì nó là gì?
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{ban_hoc.png}
+            % GỢI Ý ẢNH: Hình ảnh một cái bàn học với bút, sách, gôm đặt cạnh nhau, góc chụp từ trên xuống
+            \caption{Các đồ vật trên bàn}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+
+## Yêu cầu đặc biệt:
+
+1. **Tuân thủ nghiêm ngặt template** đã cho
+2. **Chia slide logic** dựa trên sự thay đổi chủ đề trong SRT
+3. **Mỗi slide tối đa 4-5 bullet points** để tránh quá tải thông tin
+4. **Sử dụng columns layout** cho tất cả slide nội dung
+5. **Dùng placeholder.png** cho tất cả ảnh, người dùng sẽ tự thay thế theo gợi ý
+6. **Kết thúc file** bằng `\end{document}`
+
+Hãy tạo ra file `.tex` hoàn chỉnh theo đúng template và yêu cầu này!
 ```
 
+---
+
+**Prompt 2: Prompt LaTeX Beamer Chuyên Nghiệp (latex tự vẽ)**
+
+```
+
+Bạn là một chuyên gia LaTeX Beamer với kỹ năng thượng thừa trong việc sử dụng các thư viện vẽ của LaTeX như TikZ, PGFPlots, Smartdiagram, v.v. Nhiệm vụ của bạn là tạo một tệp trình chiếu LaTeX Beamer (`.tex`) hoàn chỉnh, tự chứa (self-contained), dựa trên kịch bản được cung cấp (trích xuất từ file SRT) và các mốc thời gian, trong đó tất cả các hình ảnh minh họa phải được vẽ trực tiếp bằng mã LaTeX.
+
+## Đầu vào:
+
+1.  **File Phụ đề SRT (hoặc nội dung của nó):** Chứa lời thoại và mốc thời gian chính xác.
+2.  **Kịch bản Văn bản Thô (Tùy chọn):** Toàn bộ nội dung văn bản từ file SRT.
+3.  **Danh sách thư viện vẽ LaTeX ưu tiên (tự do lựa chọn thêm nếu cần):**
+    *   **Chính:** TikZ/PGF (và các thư viện con như `shapes.geometric`, `arrows.meta`, `positioning`, `calc`, `decorations.pathmorphing`, `shadows`, `mindmap`, `trees`, `angles`, `quotes`, v.v.)
+    *   **Sơ đồ:** Smartdiagram (`flow diagram`, `sequence diagram`, `descriptive diagram`, etc.)
+    *   **Đồ thị:** PGFPlots.
+    *   **(Các thư viện chuyên biệt khác như `circuitikz`, `forest`, `chemfig`, `tikz-cd` có thể được xem xét nếu nội dung yêu cầu rõ ràng.)**
+
+## Yêu cầu đầu ra (Tệp `.tex`):
+
+### 1. Template Cấu Trúc Bắt Buộc (Mở rộng cho hình vẽ):
+
+
+\documentclass[aspectratio=169,vietnamese]{beamer} % 16:9, Vietnamese
+
+% GÓI CƠ BẢN
+\usepackage[utf8]{inputenc}
+\usepackage[T5,T1]{fontenc} % Chỉnh sửa T5,T1 để cùng dòng nếu thích
+\usepackage{babel}
+\usepackage{amsmath, amssymb, amsfonts} % Gói toán học
+
+% GÓI VẼ (QUAN TRỌNG) - Thêm tất cả các gói cần thiết ở đây
+\usepackage{tikz}
+\usetikzlibrary{
+    shapes.geometric, arrows.meta, positioning, calc, patterns,
+    decorations.pathmorphing, decorations.text, shadows, mindmap,
+    trees, shapes.misc, shapes.standard, angles, quotes %Thêm các thư viện con TikZ thường dùng
+}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18} % Hoặc phiên bản mới nhất bạn có
+\usepackage{smartdiagram}
+\usesmartdiagramlibrary{additions} % Thêm các loại diagram nếu cần
+% \usepackage{[thư_viện_vẽ_khác_nếu_cần]}
+
+% GIAO DIỆN HIỆN ĐẠI
+\usetheme{metropolis} % Theme hiện đại
+% \usecolortheme{beaver} % Tùy chọn màu sắc
+
+% THÔNG TIN BÀI TRÌNH BÀY
+\title{[Tiêu đề chính từ nội dung]}
+\subtitle{[Tiêu đề phụ phù hợp]}
+\author{[Tên người trình bày]}
+\date{\today}
+\institute{[Tên tổ chức/khóa học]}
+
+% XÓA BIỂU TƯỢNG ĐIỀU HƯỚNG
+\beamertemplatenavigationsymbolsempty
+
+% (Có thể định nghĩa các \tikzstyle hoặc \tikzset toàn cục ở đây nếu cần)
+
+% SLIDE ĐẦU TIÊN - TIÊU ĐỀ
+\begin{document}
+{ % Mở đầu slide tiêu đề
+\setbeamercolor{background canvas}{bg=blue!10} % Màu nền nhẹ
+\begin{frame}[plain] % plain để không có header/footer
+    \titlepage
+    % TÙY CHỌN: Thêm một hình vẽ TikZ trừu tượng nhỏ ở góc slide nếu muốn
+\end{frame}
+}
+
+
+### 2. Cấu trúc Slide:
+
+-   **Mốc thời gian:** Trước mỗi slide, thêm comment: `%% Chuyển slide: [timestamp từ SRT]`
+-   **Tiêu đề slide:** Mỗi `\begin{frame}` phải có `\frametitle{...}` rõ ràng.
+-   **Layout columns:** Sử dụng `\begin{columns}[T]` để chia không gian cho text và hình vẽ LaTeX:
+    
+    \begin{columns}[T]
+        \begin{column}{0.6\textwidth}
+            % Nội dung text
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \centering % Để căn giữa hình vẽ
+            % MÃ LATEX ĐỂ VẼ HÌNH MINH HỌA Ở ĐÂY
+            % (Ví dụ: \begin{tikzpicture}...\end{tikzpicture} hoặc \smartdiagram[...]{...})
+            % Không dùng \caption trực tiếp với TikZ trừ khi trong figure, có thể dùng node.
+        \end{column}
+    \end{columns}
+    
+
+### 3. Định dạng Nội dung Văn Bản:
+
+-   Sử dụng `\begin{itemize}` với `\item` cho các điểm chính.
+-   Sử dụng `\textbf{...}` để nhấn mạnh từ khóa quan trọng.
+-   Đảm bảo văn phong trôi chảy, phù hợp giảng dạy.
+
+### 4. Yêu cầu Hình Ảnh Minh Họa (Vẽ bằng LaTeX):
+
+-   **Không sử dụng `\includegraphics` hay placeholder.** Tất cả các hình ảnh, sơ đồ, biểu đồ phải được tạo ra bằng mã LaTeX (chủ yếu là TikZ, PGFPlots, Smartdiagram).
+-   **Tích hợp trực tiếp:** Mã vẽ được đặt trong `column` đã định sẵn.
+-   **Phù hợp nội dung:** Hình vẽ phải minh họa trực tiếp và rõ ràng cho nội dung text bên cạnh.
+-   **Kích thước và thẩm mỹ:**
+    *   Điều chỉnh kích thước của hình vẽ (ví dụ: dùng `scale` trong `tikzpicture`, hoặc các tùy chọn `width`/`height` của `axis` trong PGFPlots, `module size` trong Smartdiagram) để vừa vặn và dễ nhìn.
+    *   Sử dụng màu sắc hài hòa, đường nét rõ ràng.
+    *   Thêm các nhãn, chú thích cần thiết *bên trong* hình vẽ nếu cần (ví dụ, sử dụng `node` trong TikZ).
+-   **Chú thích mã vẽ (nếu phức tạp):** Nếu đoạn mã vẽ phức tạp, thêm các dòng comment LaTeX (`%`) để giải thích các phần chính của mã.
+
+### 5. Ví dụ Template Slide với Hình Vẽ LaTeX:
+
+
+%% Chuyển slide: 00:00:17,600
+% SLIDE 2: KHÁI NIỆM CƠ BẢN
+\begin{frame}
+    \frametitle{Khái Niệm Cơ Bản}
+    \begin{columns}[T]
+        \begin{column}{0.6\textwidth}
+            \begin{itemize}
+                \item Mục tiêu: Xem các khái niệm này liên kết với nhau thế nào.
+                \item \textbf{Ví dụ đơn giản:} Trên bàn có các đồ vật.
+                \item Nếu chỉ kể tên chúng ra thôi thì nó là gì?
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \centering
+            \begin{tikzpicture}[scale=0.6, transform shape]
+                % Pen
+                \draw[fill=yellow!60, rounded corners=1pt] (0,0) rectangle (0.5,2);
+                \draw[fill=gray!30] (0.25,2) -- (0,2.5) -- (0.5,2.5) -- cycle;
+                \node[below=1pt of {(0.25,0)}, font=\tiny] {Bút};
+                % Book
+                \draw[fill=blue!40, rounded corners=2pt] (1.5,0.5) rectangle (3.5,2.5);
+                \draw[white, line width=1pt] (1.6,0.6) -- (1.6,2.4); % Spine
+                \node[below=1pt of {(2.5,0.5)}, font=\tiny] {Sách};
+                % Eraser
+                \draw[fill=red!40, rounded corners=2pt] (4.5,1) rectangle (5.8,1.8);
+                \node[below=1pt of {(5.15,1)}, font=\tiny] {Gôm};
+                % Caption below image
+                \node[font=\footnotesize, text width=\linewidth, align=center] at (2.75, -1) {Các đồ vật trên bàn};
+            \end{tikzpicture}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+
+## Yêu cầu đặc biệt:
+
+1.  **Tuân thủ nghiêm ngặt template** đã cho (về cấu trúc `documentclass`, `\usepackage`, `\title`, v.v.).
+2.  **Chia slide logic** dựa trên sự thay đổi chủ đề trong SRT.
+3.  **Mỗi slide tối đa 4-5 bullet points** để tránh quá tải thông tin.
+4.  **Sử dụng columns layout** cho tất cả slide nội dung có cả text và hình vẽ.
+5.  **Vẽ tất cả hình minh họa bằng LaTeX.** Đảm bảo file `.tex` đầu ra có thể biên dịch thành công mà không cần bất kỳ file ảnh bên ngoài nào.
+6.  **Kết thúc file** bằng `\end{document}`.
+
+Hãy tạo ra file `.tex` hoàn chỉnh, tự chứa, theo đúng template và yêu cầu này!
+```
+
+
 ## **6.2 chỉnh sửa thêm cho từng slide cụ thể.**
-Sau khi AI tạo ra code LaTeX ban đầu cho toàn bộ bài giảng, bạn sẽ xem xét và đưa các prompt sau để AI chỉnh sửa từng slide cụ thể (dựa trên ví dụ bạn cung cấp):
+Sau khi AI tạo ra code LaTeX ban đầu cho toàn bộ bài giảng, bạn sẽ xem xét và đưa các prompt sau để AI chỉnh sửa từng slide cụ thể:
 - Dùng [Qwen](https://chat.qwen.ai/)
+- Dưới đây là 1 số ví dụ
 
 **Ví dụ 1 (Cho Slide cụ thể, ví dụ Slide 30 từ code AI tạo): Yêu cầu AI thay thế ảnh bằng hình vẽ LaTeX**
 
