@@ -136,35 +136,53 @@ Mục tiêu là sau 15 phút, học sinh không chỉ hiểu kiến thức mà c
 *  Dùng [Claude](https://claude.ai/) / [Google Ai Studio  ](https://aistudio.google.com/)  
 * Sau khi có file SRT hoàn chỉnh (`final_script.srt` từ Mục 5), bạn sẽ sử dụng nội dung văn bản trong file SRT này làm script để **yêu cầu AI tạo slide ban đầu** dưới dạng **LaTeX**.
 
-**Prompt 1: Prompt LaTeX Beamer Chuyên Nghiệp (tự kiếm hình về chèn vào) - nhở tải  placeholder.png và bỏ vào overleaf**
+**Prompt 1: Prompt LaTeX Beamer Chuyên Nghiệp & Linh Hoạt (Ảnh Placeholder hoặc LaTeX Tự Vẽ) - nhở tải  placeholder.png và bỏ vào overleaf**
 
 ```
-# Prompt LaTeX Beamer Chuyên Nghiệp
+# Prompt LaTeX Beamer Chuyên Nghiệp & Linh Hoạt
 
-Bạn là một chuyên gia LaTeX Beamer. Nhiệm vụ của bạn là tạo một tệp trình chiếu LaTeX Beamer (`.tex`) hoàn chỉnh dựa trên kịch bản được cung cấp (trích xuất từ file SRT) và các mốc thời gian.
+Bạn là một chuyên gia LaTeX Beamer với khả năng linh hoạt trong việc tạo hình ảnh minh họa. Nhiệm vụ của bạn là tạo một tệp trình chiếu LaTeX Beamer (`.tex`) hoàn chỉnh dựa trên kịch bản (từ file SRT) và các mốc thời gian. Bạn sẽ **quyết định** khi nào nên sử dụng ảnh placeholder (kèm gợi ý chi tiết để người dùng tự tìm ảnh) và khi nào nên tự vẽ hình minh họa bằng mã LaTeX (sử dụng TikZ, Smartdiagram, PGFPlots, v.v.) để đạt hiệu quả truyền đạt tốt nhất.
 
 ## Đầu vào:
 
-1. **File Phụ đề SRT (hoặc nội dung của nó):** Chứa lời thoại và mốc thời gian chính xác
-2. **Kịch bản Văn bản Thô (Tùy chọn):** Toàn bộ nội dung văn bản từ file SRT
+1.  **File Phụ đề SRT (hoặc nội dung của nó):** Chứa lời thoại và mốc thời gian chính xác.
+2.  **Kịch bản Văn bản Thô (Tùy chọn):** Toàn bộ nội dung văn bản từ file SRT.
+3.  **Gợi ý Thư viện Vẽ LaTeX (nếu chọn tự vẽ):**
+    *   **Chính:** TikZ/PGF (và các thư viện con như `shapes.geometric`, `arrows.meta`, `positioning`, `calc`, `decorations.pathmorphing`, `shadows`, `mindmap`, `trees`, `angles`, `quotes`, v.v.)
+    *   **Sơ đồ:** Smartdiagram (`flow diagram`, `sequence diagram`, `descriptive diagram`, etc.)
+    *   **Đồ thị:** PGFPlots.
+    *   **(Cân nhắc các thư viện khác nếu thực sự cần thiết cho nội dung.)**
 
 ## Yêu cầu đầu ra (Tệp `.tex`):
 
-### 1. Template Cấu Trúc Bắt Buộc:
+### 1. Template Cấu Trúc Bắt Buộc (Hỗ trợ cả hai loại hình ảnh):
 
 
-\documentclass[169,vietnamese]{beamer} % 16:9 aspect ratio, Vietnamese language
+\documentclass[aspectratio=169,vietnamese]{beamer} % 16:9, Vietnamese
 
 % GÓI CƠ BẢN
 \usepackage[utf8]{inputenc}
-\usepackage[T5]{fontenc}
+\usepackage[T5,T1]{fontenc}
 \usepackage{babel}
 \usepackage{amsmath, amssymb, amsfonts} % Gói toán học
-\usepackage{graphicx} % Gói chèn ảnh
+\usepackage{graphicx} % <<< QUAN TRỌNG: Để chèn ảnh placeholder
+
+% GÓI VẼ (NẾU SỬ DỤNG) - Thêm tất cả các gói cần thiết nếu bạn chọn vẽ
+\usepackage{tikz}
+\usetikzlibrary{
+    shapes.geometric, arrows.meta, positioning, calc, patterns,
+    decorations.pathmorphing, decorations.text, shadows, mindmap,
+    trees, shapes.misc, shapes.standard, angles, quotes %Thêm các thư viện con TikZ thường dùng
+}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18} % Hoặc phiên bản mới nhất bạn có
+\usepackage{smartdiagram}
+\usesmartdiagramlibrary{additions}
+% \usepackage{[thư_viện_vẽ_khác_nếu_cần]}
 
 % GIAO DIỆN HIỆN ĐẠI
-\usetheme{metropolis} % Theme hiện đại
-% \usecolortheme{beaver} % Tùy chọn màu sắc (có thể bỏ comment nếu cần)
+\usetheme{metropolis}
+% \usecolortheme{beaver}
 
 % THÔNG TIN BÀI TRÌNH BÀY
 \title{[Tiêu đề chính từ nội dung]}
@@ -176,81 +194,141 @@ Bạn là một chuyên gia LaTeX Beamer. Nhiệm vụ của bạn là tạo m�
 % XÓA BIỂU TƯỢNG ĐIỀU HƯỚNG
 \beamertemplatenavigationsymbolsempty
 
+% (Có thể định nghĩa các \tikzstyle hoặc \tikzset toàn cục ở đây nếu cần cho các hình vẽ LaTeX)
+
 % SLIDE ĐẦU TIÊN - TIÊU ĐỀ
 \begin{document}
 { % Mở đầu slide tiêu đề
-\setbeamercolor{background canvas}{bg=blue!10} % Màu nền nhẹ
-\begin{frame}[plain] % plain để không có header/footer
+\setbeamercolor{background canvas}{bg=blue!10}
+\begin{frame}[plain]
     \titlepage
+    % TÙY CHỌN: Thêm một hình vẽ TikZ trừu tượng nhỏ ở góc slide tiêu đề nếu muốn và hợp lý
 \end{frame}
 }
 
 
 ### 2. Cấu trúc Slide:
 
-- **Mốc thời gian:** Trước mỗi slide, thêm comment: `%% Chuyển slide: [timestamp từ SRT]`
-- **Tiêu đề slide:** Mỗi `\begin{frame}` phải có `\frametitle{...}` rõ ràng
-- **Layout columns:** Sử dụng `\begin{columns}[T]` để chia không gian cho text và ảnh:
+-   **Mốc thời gian:** Trước mỗi slide, thêm comment: `%% Chuyển slide: [timestamp từ SRT]`
+-   **Tiêu đề slide:** Mỗi `\begin{frame}` phải có `\frametitle{...}` rõ ràng.
+-   **Layout columns:** Sử dụng `\begin{columns}[T]` để chia không gian cho text và hình ảnh/hình vẽ:
     
-    
-    \begin{columns}[T]    \begin{column}{0.6\textwidth}        % Nội dung text    \end{column}    \begin{column}{0.4\textwidth}        % Gợi ý ảnh và caption    \end{column}\end{columns}
-    
-    
-
-### 3. Định dạng Nội dung:
-
-- Sử dụng `\begin{itemize}` với `\item` cho các điểm chính
-- Sử dụng `\textbf{...}` để nhấn mạnh từ khóa quan trọng
-- Đảm bảo văn phong trôi chảy, phù hợp giảng dạy
-
-### 4. Gợi ý Hình ảnh:
-
-- **Sử dụng placeholder:** `\includegraphics[width=\linewidth]{placeholder.png}` cho tất cả ảnh
-- **Gợi ý chi tiết:** Đặt comment `% GỢI Ý ẢNH: [Mô tả chi tiết hình ảnh]` ngay dưới includegraphics
-- **Thêm caption:** Sử dụng `\caption{...}` để mô tả ngắn gọn
-- **Người dùng tự tìm ảnh** theo gợi ý và thay thế placeholder
-- **Ví dụ:**
-    
-    
-    \centering\includegraphics[width=\linewidth]{placeholder.png}% GỢI Ý ẢNH: Sơ đồ minh họa quá trình chéo hóa ma trận với các bước từ ma trận gốc đến ma trận chéo\caption{Quá trình chéo hóa}
-    
+    \begin{columns}[T]
+        \begin{column}{0.6\textwidth}
+            % Nội dung text
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \centering
+            % << NƠI ĐẶT \includegraphics HOẶC MÃ VẼ LATEX >>
+        \end{column}
+    \end{columns}
     
 
-### 5. Ví dụ Template Slide:
+### 3. Định dạng Nội dung Văn Bản:
 
+-   Sử dụng `\begin{itemize}` với `\item` cho các điểm chính.
+-   Sử dụng `\textbf{...}` để nhấn mạnh từ khóa quan trọng.
+-   Văn phong trôi chảy, phù hợp giảng dạy.
 
-%% Chuyển slide: 00:00:17,600
-% SLIDE 2: KHÁI NIỆM CƠ BẢN
+### 4. Xử Lý Hình Ảnh Minh Họa (Linh Hoạt):
+
+Bạn có **hai lựa chọn** cho mỗi hình ảnh minh họa, hãy chọn phương án phù hợp nhất:
+
+**Lựa chọn A: Sử dụng Placeholder Image (`\includegraphics`)**
+    *   Phù hợp cho: Hình ảnh phức tạp, ảnh chụp thực tế, sơ đồ chi tiết khó vẽ bằng code.
+    *   Cách thực hiện:
+        *   Sử dụng `\includegraphics[width=\linewidth]{placeholder.png}`.
+        *   **BẮT BUỘC:** Ngay dưới `\includegraphics`, thêm comment:
+            `% GỢI Ý ẢNH: [Mô tả chi tiết, rõ ràng về hình ảnh cần tìm. Ví dụ: "Ảnh chụp một phòng thí nghiệm hóa học hiện đại với đầy đủ dụng cụ." hoặc "Sơ đồ luồng dữ liệu của một hệ thống thương mại điện tử."]`
+        *   Sử dụng `\caption{[Chú thích ngắn gọn cho ảnh]}`.
+
+**Lựa chọn B: Tự Vẽ Bằng Mã LaTeX (TikZ, PGFPlots, Smartdiagram, etc.)**
+    *   Phù hợp cho: Sơ đồ khối, biểu đồ đơn giản, hình vẽ khái niệm, icon, các đối tượng hình học.
+    *   Cách thực hiện:
+        *   Viết mã LaTeX (ví dụ `\begin{tikzpicture}...\end{tikzpicture}` hoặc `\smartdiagram[...]{...}`) trực tiếp vào cột.
+        *   Hình vẽ phải minh họa rõ ràng nội dung text.
+        *   Điều chỉnh kích thước (`scale`, `width`, `height`, `module size`) cho phù hợp.
+        *   Sử dụng màu sắc, đường nét rõ ràng.
+        *   Thêm nhãn/chú thích *bên trong* hình vẽ (dùng `node` trong TikZ) hoặc dùng một `node` ở dưới cùng của `tikzpicture` để làm chú thích nếu cần.
+        *   Comment giải thích các phần mã vẽ phức tạp.
+        *   **Không sử dụng `\caption{}` trực tiếp với mã vẽ LaTeX (trừ khi mã vẽ nằm trong môi trường `figure`, điều này thường không cần thiết trong layout cột).**
+
+### 5. Ví dụ Template Slide Minh Họa Sự Linh Hoạt:
+
+**Ví dụ 1: Slide sử dụng Placeholder Image**
+
+%% Chuyển slide: 00:01:15,300
+% SLIDE 3: ỨNG DỤNG THỰC TẾ
 \begin{frame}
-    \frametitle{Khái Niệm Cơ Bản}
+    \frametitle{Ứng Dụng Thực Tế trong Y Học}
     \begin{columns}[T]
         \begin{column}{0.6\textwidth}
             \begin{itemize}
-                \item Mục tiêu: Xem các khái niệm này liên kết với nhau thế nào
-                \item \textbf{Ví dụ đơn giản:} Trên bàn có các đồ vật
-                \item Nếu chỉ kể tên chúng ra thôi thì nó là gì?
+                \item Phân tích hình ảnh y tế: Phát hiện khối u, tổn thương.
+                \item \textbf{Robot phẫu thuật:} Điều khiển cánh tay robot chính xác.
+                \item Mô phỏng 3D cơ thể người cho nghiên cứu và đào tạo.
             \end{itemize}
         \end{column}
         \begin{column}{0.4\textwidth}
             \centering
-            \includegraphics[width=\linewidth]{ban_hoc.png}
-            % GỢI Ý ẢNH: Hình ảnh một cái bàn học với bút, sách, gôm đặt cạnh nhau, góc chụp từ trên xuống
-            \caption{Các đồ vật trên bàn}
+            \includegraphics[width=\linewidth]{placeholder.png}
+            % GỢI Ý ẢNH: Hình ảnh một bác sĩ đang làm việc với hệ thống robot phẫu thuật da Vinci trong phòng mổ, thể hiện sự chính xác và công nghệ cao.
+            \caption{Robot hỗ trợ phẫu thuật}
         \end{column}
     \end{columns}
 \end{frame}
 
+**Ví dụ 2: Slide sử dụng LaTeX Tự Vẽ (Smartdiagram)**
 
-## Yêu cầu đặc biệt:
+%% Chuyển slide: 00:02:20,800
+% SLIDE 4: QUY TRÌNH BA BƯỚC
+\begin{frame}
+    \frametitle{Quy Trình Xử Lý Dữ Liệu Cơ Bản}
+    \begin{columns}[T]
+        \begin{column}{0.6\textwidth}
+            \begin{itemize}
+                \item \textbf{Bước 1:} Thu thập dữ liệu thô từ nhiều nguồn.
+                \item \textbf{Bước 2:} Tiền xử lý và làm sạch dữ liệu.
+                \item \textbf{Bước 3:} Phân tích, trực quan hóa và rút ra kết luận.
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \centering
+            \smartdiagramset{
+                uniform color list=blue!60!white for 3 items,
+                sequence item border color=blue,
+                sequence item text color=black,
+                sequence arrow color=blue,
+                module minimum width=3cm,
+                module minimum height=1.5cm,
+                text width=2.5cm,
+                font=\small
+            }
+            \smartdiagram[sequence diagram]{
+                Thu thập,
+                Tiền xử lý,
+                Phân tích
+            }
+            % Chú thích cho smartdiagram có thể đặt bằng node TikZ nếu cần vẽ thêm,
+            % hoặc một đoạn text \footnotesize ngay dưới nếu đơn giản.
+            % Ở đây, smartdiagram đã đủ rõ.
+        \end{column}
+    \end{columns}
+\end{frame}
 
-1. **Tuân thủ nghiêm ngặt template** đã cho
-2. **Chia slide logic** dựa trên sự thay đổi chủ đề trong SRT
-3. **Mỗi slide tối đa 4-5 bullet points** để tránh quá tải thông tin
-4. **Sử dụng columns layout** cho tất cả slide nội dung
-5. **Dùng placeholder.png** cho tất cả ảnh, người dùng sẽ tự thay thế theo gợi ý
-6. **Kết thúc file** bằng `\end{document}`
+### 6. Yêu cầu đặc biệt:
 
-Hãy tạo ra file `.tex` hoàn chỉnh theo đúng template và yêu cầu này!
+1.  **Tuân thủ nghiêm ngặt template** đã cho về cấu trúc chung, nhưng **linh hoạt trong việc chọn phương pháp minh họa hình ảnh** (Placeholder hoặc Tự vẽ).
+2.  **Chia slide logic** dựa trên sự thay đổi chủ đề trong SRT.
+3.  **Mỗi slide tối đa 4-5 bullet points.**
+4.  **Luôn sử dụng columns layout** cho các slide có cả nội dung text và hình ảnh/hình vẽ.
+5.  **Quyết định phương pháp minh họa dựa trên tính phù hợp:**
+    *   Nếu nội dung là sơ đồ, quy trình, khái niệm trừu tượng có thể biểu diễn bằng hình học đơn giản: **ưu tiên tự vẽ bằng LaTeX**.
+    *   Nếu nội dung cần hình ảnh thực tế, phức tạp, chi tiết cao mà khó hoặc tốn thời gian để vẽ bằng LaTeX: **sử dụng `placeholder.png` và cung cấp gợi ý chi tiết**.
+6.  Nếu tự vẽ, đảm bảo file `.tex` có thể biên dịch mà không cần file ảnh ngoài cho hình vẽ đó. Nếu dùng placeholder, người dùng sẽ tự tìm ảnh.
+7.  Kết thúc file bằng `\end{document}`.
+
+Hãy tạo ra file `.tex` hoàn chỉnh, thể hiện sự chuyên nghiệp và khả năng phán đoán linh hoạt của bạn!
 ```
 
 ---
