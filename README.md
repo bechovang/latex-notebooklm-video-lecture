@@ -131,6 +131,7 @@ Mục tiêu là sau 15 phút, học sinh không chỉ hiểu kiến thức mà c
     ```
 *   **Đầu ra mong đợi từ Claude AI**:
     *   Một đoạn văn bản chứa **nội dung file phụ đề SRT mới, đã được cải thiện và hoàn chỉnh**. Ví dụ: `final_script.srt`. File SRT này sẽ là nguồn chính cho cả script giảng dạy và thông tin thời gian.
+    *   [chuyển sang định dạng ass cho ít lỗi](https://gotranscript.com/subtitle-converter)
 
 ## **6. Tạo Slide LaTeX (và các prompt chỉnh sửa)**
 
