@@ -136,7 +136,7 @@ Mục tiêu là sau 15 phút, học sinh không chỉ hiểu kiến thức mà c
 *  Dùng [Claude](https://claude.ai/) / [Google Ai Studio  ](https://aistudio.google.com/)  
 * Sau khi có file SRT hoàn chỉnh (`final_script.srt` từ Mục 5), bạn sẽ sử dụng nội dung văn bản trong file SRT này làm script để **yêu cầu AI tạo slide ban đầu** dưới dạng **LaTeX**.
 
-**Prompt 1: Prompt LaTeX Beamer Chuyên Nghiệp (tự kiếm hình về chèn vào)**
+**Prompt 1: Prompt LaTeX Beamer Chuyên Nghiệp (tự kiếm hình về chèn vào) - nhở tải  placeholder.png và bỏ vào overleaf**
 
 ```
 # Prompt LaTeX Beamer Chuyên Nghiệp
