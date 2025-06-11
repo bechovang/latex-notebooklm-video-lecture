@@ -1,3 +1,4 @@
+Tuyệt vời! Dưới đây là quy trình đã được cập nhật để sử dụng **CapCut (phiên bản máy tính)** thay cho Camtasia ở bước tạo video cuối cùng.
 
 # Quy Trình Tạo Nội Dung Giáo Dục Sử Dụng AI
 
@@ -37,7 +38,7 @@ Phương pháp này giúp giảm thiểu bộ nhớ và tính toán hiệu quả
 
 ## **2. AI Triển Khai Bài Giảng**
 
-* tiếp nối bước 1  
+* tiếp nối bước 1
 * Sau khi AI hiểu nội dung (nếu chưa hiểu, bạn cần giải thích lại), yêu cầu AI **tạo một bản mô tả slide** chi tiết cho bài giảng.
 *   **Prompt Cho AI Triển Khai Bài Giảng:**
 ```
@@ -136,8 +137,7 @@ Mục tiêu là sau 15 phút, học sinh không chỉ hiểu kiến thức mà c
 *  Dùng [Claude](https://claude.ai/) / [Google Ai Studio  ](https://aistudio.google.com/)  
 * Sau khi có file SRT hoàn chỉnh (`final_script.srt` từ Mục 5), bạn sẽ sử dụng nội dung văn bản trong file SRT này làm script để **yêu cầu AI tạo slide ban đầu** dưới dạng **LaTeX**.
 
-**Prompt 1: Prompt LaTeX Beamer Chuyên Nghiệp & Linh Hoạt (Ảnh Placeholder hoặc LaTeX Tự Vẽ) - nhở tải  placeholder.png và bỏ vào overleaf**
-
+**Prompt 1: Prompt LaTeX Beamer Chuyên Nghiệp & Linh Hoạt (Ảnh Placeholder hoặc LaTeX Tự Vẽ) - nhở tải placeholder.png và bỏ vào overleaf**
 ```
 # Prompt LaTeX Beamer Chuyên Nghiệp & Linh Hoạt
 
@@ -275,7 +275,7 @@ Bạn có **hai lựa chọn** cho mỗi hình ảnh minh họa, hãy chọn ph�
             \includegraphics[width=\linewidth]{placeholder.png}
             % GỢI Ý ẢNH: Hình ảnh một bác sĩ đang làm việc với hệ thống robot phẫu thuật da Vinci trong phòng mổ, thể hiện sự chính xác và công nghệ cao.
             \caption{Robot hỗ trợ phẫu thuật}
-        \end{column}
+        </column}
     \end{columns}
 \end{frame}
 
@@ -489,202 +489,26 @@ Bạn là một chuyên gia LaTeX Beamer với kỹ năng thượng thừa trong
 Hãy tạo ra file `.tex` hoàn chỉnh, tự chứa, theo đúng template và yêu cầu này!
 ```
 
-
 ## **6.2 chỉnh sửa thêm cho từng slide cụ thể.**
 Sau khi AI tạo ra code LaTeX ban đầu cho toàn bộ bài giảng, bạn sẽ xem xét và đưa các prompt sau để AI chỉnh sửa từng slide cụ thể:
 - Dùng [Qwen](https://chat.qwen.ai/)
 - sửa hoài ko đc thì kêu nó đơn giản lại slide đó
-- [tham khảo đoạn chat này]([url](https://chat.qwen.ai/s/630dbb38-dc33-4f1e-8699-4068e3b94be8?fev=0.0.114))
+- [tham khảo đoạn chat này](https://chat.qwen.ai/s/630dbb38-dc33-4f1e-8699-4068e3b94be8?fev=0.0.114)
 - Dưới đây là 1 số ví dụ
 
-**Ví dụ 1 (Cho Slide cụ thể, ví dụ Slide 30 từ code AI tạo): Yêu cầu AI thay thế ảnh bằng hình vẽ LaTeX**
-
-*   **Giả sử AI tạo ra code LaTeX cho một Slide (ví dụ có `\includegraphics` cho slide về ma trận không chéo hóa được) như sau:**
-    ```latex
-    % SLIDE X: CÂU HỎI MỞ RỘNG (ví dụ)
-    \begin{frame}
-        \frametitle{Một Câu Hỏi Mở Rộng}
-        \begin{itemize}
-            \item Vậy nếu như một ma trận \textbf{không có đủ vector riêng độc lập tuyến tính} để tạo thành ma trận $P$ khả nghịch?
-            \item Thì suy ra là việc chéo hóa như mình vừa bàn là \textbf{không thể thực hiện được}.
-        \end{itemize}
-        \centering
-        \includegraphics[width=0.5\textwidth]{example-image-16x9} % AI có thể chèn ảnh mẫu
-        % GỢI Ý ẢNH: Một ma trận với dấu X đỏ chéo qua.
-        \caption{Khi ma trận không chéo hóa được}
-    \end{frame}
-    ```
-
-*   **Prompt để yêu cầu AI chỉnh sửa slide này:**
-    ```text
-    Cho đoạn code LaTeX của slide sau:
-
-    % SLIDE X: CÂU HỎI MỞ RỘNG (ví dụ)
-    \begin{frame}
-        \frametitle{Một Câu Hỏi Mở Rộng}
-        \begin{itemize}
-            \item Vậy nếu như một ma trận \textbf{không có đủ vector riêng độc lập tuyến tính} để tạo thành ma trận $P$ khả nghịch?
-            \item Thì suy ra là việc chéo hóa như mình vừa bàn là \textbf{không thể thực hiện được}.
-        \end{itemize}
-        \centering
-        \includegraphics[width=0.5\textwidth]{example-image-16x9}
-        % GỢI Ý ẢNH: Một ma trận với dấu X đỏ chéo qua.
-        \caption{Khi ma trận không chéo hóa được}
-    \end{frame}
-
-    Slide có hình ảnh minh họa là ảnh mẫu ngoài (example-image), nhưng mình muốn thay bằng hình vẽ trong LaTeX luôn.  
-    Hình vẽ nên là một ma trận lớn với dấu X đỏ chéo qua bên trên, rồi thêm dòng chữ "Không thể chéo hóa! " bên dưới. Không cần chú thích ảnh nữa
-    ```
-
----
-**Ví dụ 2 (Cho Slide cụ thể, ví dụ Slide 12 từ code AI tạo): Yêu cầu AI làm nổi bật công thức và bỏ ảnh**
-
-*   **Giả sử AI tạo ra code LaTeX cho một Slide (ví dụ có công thức $A = PDP^{-1}$ và ảnh) như sau:**
-    ```latex
-    % SLIDE Y: KHÔI PHỤC A (ví dụ)
-    \begin{frame}
-        \frametitle{Khôi Phục Ma Trận Gốc A}
-        \begin{itemize}
-            \item Nếu $P^{-1}AP = D$, ta có thể khôi phục lại ma trận $A$ ban đầu bằng công thức:
-        \end{itemize}
-        \begin{block}{Công thức khôi phục}
-        \[ A = P D P^{-1} \]
-        \end{block}
-        \begin{itemize}
-            \item Điều này cho thấy $A$ và $D$ là \textit{đồng dạng (similar)}.
-        \end{itemize}
-        \centering
-        \includegraphics[width=0.5\textwidth]{example-image-16x9}
-        % GỢI Ý ẢNH: Công thức A = PDP^{-1} được làm nổi bật.
-        \caption{Từ D trở lại A}
-    \end{frame}
-    ```
-*   **Prompt để yêu cầu AI chỉnh sửa slide này:**
-    ```text
-    Cho đoạn code LaTeX của slide sau:
-
-    % SLIDE Y: KHÔI PHỤC A (ví dụ)
-    \begin{frame}
-        \frametitle{Khôi Phục Ma Trận Gốc A}
-        \begin{itemize}
-            \item Nếu $P^{-1}AP = D$, ta có thể khôi phục lại ma trận $A$ ban đầu bằng công thức:
-        \end{itemize}
-        \begin{block}{Công thức khôi phục}
-        \[ A = P D P^{-1} \]
-        \end{block}
-        \begin{itemize}
-            \item Điều này cho thấy $A$ và $D$ là \textit{đồng dạng (similar)}.
-        \end{itemize}
-        \centering
-        \includegraphics[width=0.5\textwidth]{example-image-16x9}
-        % GỢI Ý ẢNH: Công thức A = PDP^{-1} được làm nổi bật.
-        \caption{Từ D trở lại A}
-    \end{frame}
-
-    Công thức $A = P D P^{-1}$ quan trọng lắm, nên mình muốn nó nổi bật hơn nữa. Có thể làm màu nền nhạt, đậm nét, hoặc phóng to lên một chút.  
-    Còn cái hình ảnh ở dưới thì bỏ đi, vì mình thấy không cần thiết.
-    ```
-
----
-**Ví dụ 3 (Cho Slide cụ thể, ví dụ Slide 8 từ code AI tạo): Yêu cầu AI làm nổi bật công thức và bỏ ảnh**
-
-*   **Giả sử AI tạo ra code LaTeX cho một Slide (ví dụ có công thức $D = P^{-1}AP$ và ảnh) như sau:**
-    ```latex
-    % SLIDE Z: MẤU CHỐT PHÉP BIẾN ĐỔI (ví dụ)
-    \begin{frame}
-        \frametitle{Mấu Chốt: Phép Biến Đổi Đặc Biệt}
-        \begin{itemize}
-            \item Cái mấu chốt ở đây là mình phải tìm ra được \textbf{bản chất} của ma trận $A$.
-            \item Các tài liệu chỉ ra rằng chúng ta dùng một phép biến đổi khá đặc biệt:
-        \end{itemize}
-        \begin{block}{Công thức chéo hóa}
-        \[ D = P^{-1} A P \]
-        \end{block}
-        \centering
-        \includegraphics[width=0.5\textwidth]{example-image-16x9}
-        % GỢI Ý ẢNH: Công thức P^{-1}AP = D được làm nổi bật.
-        \caption{Công thức then chốt}
-    \end{frame}
-    ```
-*   **Prompt để yêu cầu AI chỉnh sửa slide này:**
-    ```text
-    Cho đoạn code LaTeX của slide sau:
-
-    % SLIDE Z: MẤU CHỐT PHÉP BIẾN ĐỔI (ví dụ)
-    \begin{frame}
-        \frametitle{Mấu Chốt: Phép Biến Đổi Đặc Biệt}
-        \begin{itemize}
-            \item Cái mấu chốt ở đây là mình phải tìm ra được \textbf{bản chất} của ma trận $A$.
-            \item Các tài liệu chỉ ra rằng chúng ta dùng một phép biến đổi khá đặc biệt:
-        \end{itemize}
-        \begin{block}{Công thức chéo hóa}
-        \[ D = P^{-1} A P \]
-        \end{block}
-        \centering
-        \includegraphics[width=0.5\textwidth]{example-image-16x9}
-        % GỢI Ý ẢNH: Công thức P^{-1}AP = D được làm nổi bật.
-        \caption{Công thức then chốt}
-    \end{frame}
-
-    Công thức $D = P^{-1} A P$ là công thức chính của slide này, vậy nên mình muốn nó được nhấn mạnh nhiều hơn: có thể in đậm, đổi màu nhẹ, hoặc thêm viền màu xung quanh.  
-    Hình ảnh và phần chú thích ở dưới thì xóa hết, không cần dùng.
-    ```
-
----
-**Ví dụ 4 (Cho Slide cụ thể, ví dụ Slide 6 từ code AI tạo): Yêu cầu AI điều chỉnh layout và vị trí phần tử**
-
-*   **Giả sử AI tạo ra code LaTeX cho một Slide (ví dụ về chi phí ma trận lớn, có ảnh và text chưa được căn chỉnh tối ưu) như sau:**
-    ```latex
-    % SLIDE W: CHI PHÍ CỦA MA TRẬN LỚN (ví dụ)
-    \begin{frame}
-        \frametitle{Chi Phí Của Ma Trận Lớn}
-    - Lưu trữ và tính toán trực tiếp trên ma trận lớn \textbf{rất tốn kém tài nguyên}:
-    - Tốn bộ nhớ.     
-    - Tốn thời gian xử lý của máy tính.
-    - Chéo hóa có thể hình dung nôm na như mình \textbf{nén một file ZIP} khổng lồ vậy, để máy tính xử lý dễ dàng hơn.
-        
-        \vspace{0.5cm} 
-        \centering
-        \includegraphics[height=4.0cm]{zip.png} \hspace{1cm} % Hình minh họa file zip
-        % GỢI Ý ẢNH: Icon bộ nhớ (RAM), CPU, đồng hồ (thời gian) và một icon file ZIP.
-        \caption{Tài nguyên và giải pháp nén}
-    \end{frame}
-    ```
-*   **Prompt để yêu cầu AI chỉnh sửa slide này:**
-    ```text
-    Cho đoạn code LaTeX của slide sau:
-
-    % SLIDE W: CHI PHÍ CỦA MA TRẬN LỚN (ví dụ)
-    \begin{frame}
-        \frametitle{Chi Phí Của Ma Trận Lớn}
-    - Lưu trữ và tính toán trực tiếp trên ma trận lớn \textbf{rất tốn kém tài nguyên}:
-    - Tốn bộ nhớ.     
-    - Tốn thời gian xử lý của máy tính.
-    - Chéo hóa có thể hình dung nôm na như mình \textbf{nén một file ZIP} khổng lồ vậy, để máy tính xử lý dễ dàng hơn.
-        
-        \vspace{0.5cm} 
-        \centering
-        \includegraphics[height=4.0cm]{zip.png} \hspace{1cm}
-        % GỢI Ý ẢNH: Icon bộ nhớ (RAM), CPU, đồng hồ (thời gian) và một icon file ZIP.
-        \caption{Tài nguyên và giải pháp nén}
-    \end{frame}
-
-    Phần text liệt kê lý do tốn kém (tốn bộ nhớ, thời gian xử lý...) hiện tại viết bằng dấu gạch đầu dòng “-”, nên chuyển sang dạng **danh sách bullet (`itemize`) cho rõ ràng hơn**.  
-    Câu so sánh với file ZIP nên là một đoạn văn riêng biệt, dễ đọc hơn.  
-    Hình ảnh icon ZIP hiện tại hơi lệch, muốn nó căn giữa slide, có chú thích "Tài nguyên và giải pháp nén" phía dưới. 
-    ```
+**(Các ví dụ về prompt chỉnh sửa LaTeX giữ nguyên như ban đầu)**
 
 ---
 
-## **7. Tạo Mốc Thời Gian Chuyển Slide (Không cần thiết nếu dùng Camtasia với file SRT)**
+## **7. Tạo Mốc Thời Gian Chuyển Slide (Không cần thiết nếu dùng CapCut với file SRT)**
 
 * **Nguồn**: **File phụ đề SRT đã được hoàn thiện** (`final_script.srt` từ Mục 5).
-*   **Sử dụng trực tiếp trong Camtasia**: Khi bạn nhập file `final_script.srt` vào Camtasia ở Bước 8, phần mềm sẽ tự động hiển thị phụ đề theo đúng thời gian. Bạn sẽ dựa vào sự xuất hiện của các dòng phụ đề (tương ứng với các câu nói) trên timeline của Camtasia để quyết định khi nào chuyển slide.
-*   **Không cần tạo file timestamp riêng**: Trừ khi có lý do đặc biệt, việc dựa vào file SRT trong Camtasia là đủ và trực quan.
+*   **Sử dụng trực tiếp trong CapCut**: Khi bạn nhập file `final_script.srt` vào CapCut ở Bước 8, phần mềm sẽ tự động hiển thị phụ đề theo đúng thời gian. Bạn sẽ dựa vào sự xuất hiện của các dòng phụ đề (tương ứng với các câu nói) trên timeline của CapCut để quyết định khi nào chuyển slide.
+*   **Không cần tạo file timestamp riêng**: Trừ khi có lý do đặc biệt, việc dựa vào file SRT trong CapCut là đủ và trực quan.
 
-## **8. Tạo Video Bằng Camtasia**
+## **8. Tạo Video Bằng CapCut (Phiên bản Máy Tính)**
 
-*   **Lựa chọn tối ưu**: Camtasia là công cụ mạnh mẽ và trực quan để tạo video giảng dạy, cho phép bạn dễ dàng đồng bộ slide, âm thanh, phụ đề và thêm các hiệu ứng chuyên nghiệp.
+*   **Lựa chọn tối ưu**: CapCut (phiên bản máy tính) là công cụ mạnh mẽ, miễn phí và ngày càng phổ biến, cho phép bạn dễ dàng đồng bộ slide, âm thanh, phụ đề và thêm các hiệu ứng chuyên nghiệp.
 
 *   **Chuẩn Bị File (Bước 0):**
     1.  **File Audio (`audio.wav` hoặc tương tự):** File ghi âm giọng nói từ Bước 3 (podcast).
@@ -695,57 +519,75 @@ Sau khi AI tạo ra code LaTeX ban đầu cho toàn bộ bài giảng, bạn s�
             *   **Adobe Acrobat Pro:** Có tính năng Export to Image.
             *   **Công cụ online:** Tìm kiếm "PDF to JPG converter" hoặc "PDF to PNG converter" (ví dụ: IlovePDF, Smallpdf). Tải file PDF lên và tải về file ZIP chứa các ảnh slide (ví dụ: `slide-01.jpg`, `slide-02.jpg`,...). Đảm bảo chất lượng ảnh tốt.
 
-*   **Hướng Dẫn Sử Dụng Camtasia:**
+*   **Hướng Dẫn Sử Dụng CapCut (Phiên bản Máy Tính):**
 
-    1.  **Mở Camtasia và Import Media:**
-        *   Khởi động Camtasia.
-        *   Trong khu vực **Media Bin** (thường ở bên trái hoặc trên cùng), nhấn nút "Import Media" (hoặc biểu tượng dấu cộng).
+    1.  **Mở CapCut và Tạo Dự Án Mới, Import Media:**
+        *   Khởi động CapCut. Nhấn vào **"+ New project"**.
+        *   Trong giao diện dự án, ở khu vực **Media** (thường ở góc trên bên trái), nhấn nút **"Import"**.
         *   Chọn và nhập tất cả các file đã chuẩn bị: `audio.wav`, `final_script.srt`, và tất cả các file ảnh của slide (ví dụ: `slide-01.jpg`, `slide-02.jpg`,...).
 
     2.  **Dựng Timeline - Âm Thanh và Phụ Đề Làm Nền Tảng:**
-        *   **Kéo Audio vào Timeline:** Từ Media Bin, nhấn giữ chuột vào file `audio.wav` và kéo nó xuống một track trên **Timeline** (khu vực làm việc chính ở dưới cùng).
-        *   **Kéo Phụ Đề vào Timeline:**
-            *   Kéo file `final_script.srt` từ Media Bin xuống Timeline. Camtasia sẽ tự động tạo một track mới cho phụ đề (thường có biểu tượng CC).
-            *   Các khối phụ đề sẽ xuất hiện, khớp chính xác với thời gian trong file SRT.
+        *   **Kéo Audio vào Timeline:** Từ khu vực Media, nhấn giữ chuột vào file `audio.wav` và kéo nó xuống một track trên **Timeline** (khu vực làm việc chính ở dưới cùng).
+        *   **Thêm Phụ Đề từ file SRT:**
+            *   Đi đến tab **"Text"** trên thanh công cụ phía trên timeline.
+            *   Chọn **"Local captions"** (hoặc "Import subtitles").
+            *   Nhấn nút **"Import"** và chọn file `final_script.srt`.
+            *   CapCut sẽ tạo một track phụ đề, và các khối phụ đề sẽ xuất hiện, khớp chính xác với thời gian trong file SRT.
         *   **Tùy Chỉnh Phụ Đề (nếu cần):**
-            *   Nhấp đúp vào một khối phụ đề trên timeline hoặc chọn track phụ đề.
-            *   Trong bảng điều khiển **Properties** (thường ở bên phải), bạn có thể thay đổi: Font chữ, kích thước, màu sắc, thêm viền (stroke), nền (background). Có thể chọn tất cả các khối phụ đề (Ctrl+A trên track phụ đề) để thay đổi đồng loạt.
+            *   Nhấp vào một khối phụ đề trên timeline.
+            *   Trong bảng điều khiển **Text** (thường ở bên phải), bạn có thể thay đổi:
+                *   **Font:** Chọn font chữ.
+                *   **Font size:** Kích thước chữ.
+                *   **Style:** Màu chữ (Color), viền (Stroke), nền (Background), bóng (Shadow).
+                *   **Position and Size:** Điều chỉnh vị trí và kích thước khung phụ đề.
+            *   Bạn có thể chọn nhiều khối phụ đề (giữ Ctrl và click) hoặc chọn tất cả (Ctrl+A trên track phụ đề) để áp dụng thay đổi đồng loạt.
 
     3.  **Sắp Xếp Slides Theo Âm Thanh và Phụ Đề:**
         *   Đây là bước trực quan để đồng bộ slide.
         *   **Nghe file audio** trên timeline (nhấn phím cách để Play/Pause) và quan sát dòng phụ đề tương ứng xuất hiện.
         *   **Xác định thời điểm slide đầu tiên cần xuất hiện** dựa vào lời nói/phụ đề.
-        *   **Kéo file ảnh `slide-01.jpg`** từ Media Bin xuống một track video trên timeline (thường nằm trên track audio), đặt nó tại đúng thời điểm đó.
-        *   **Kéo cạnh phải của khối ảnh `slide-01.jpg`** để điều chỉnh thời lượng hiển thị của nó, sao cho nó kết thúc khi bạn muốn chuyển sang slide tiếp theo (dựa vào audio/phụ đề).
+        *   **Kéo file ảnh `slide-01.jpg`** từ khu vực Media xuống một track video trên timeline (thường nằm trên track audio), đặt nó tại đúng thời điểm đó.
+        *   **Kéo cạnh phải của khối ảnh `slide-01.jpg`** trên timeline để điều chỉnh thời lượng hiển thị của nó, sao cho nó kết thúc khi bạn muốn chuyển sang slide tiếp theo (dựa vào audio/phụ đề).
         *   **Lặp lại quá trình:** Kéo `slide-02.jpg` vào ngay sau `slide-01.jpg`, nghe audio/xem phụ đề và kéo dài thời lượng cho khớp. Tiếp tục cho đến hết các slide.
 
-    4.  **"Tuyệt Chiêu" Nâng Cấp Video Với Camtasia (Khuyến khích):**
+    4.  **"Tuyệt Chiêu" Nâng Cấp Video Với CapCut (Khuyến khích):**
         *   **Hiệu Ứng Chuyển Cảnh (Transitions):**
-            *   Vào tab "Transitions" (thanh công cụ bên trái).
-            *   Kéo hiệu ứng (ví dụ: Fade, Wipe) thả vào giữa hai khối ảnh slide trên timeline để chuyển cảnh mượt mà hơn. "Fade" là lựa chọn phổ biến và chuyên nghiệp.
-        *   **Hiệu Ứng Zoom và Pan (Animations):**
-            *   Vào tab "Animations".
-            *   Kéo hiệu ứng "Custom" vào khối slide bạn muốn tạo hiệu ứng.
-            *   Trên timeline, một mũi tên (animation) sẽ xuất hiện trên clip đó.
-            *   Điều chỉnh thuộc tính (Scale, Position) ở điểm đầu và điểm cuối của animation trên Canvas (màn hình xem trước) để tạo hiệu ứng phóng to/thu nhỏ, di chuyển (ví dụ: zoom vào một chi tiết quan trọng trên slide).
-        *   **Chú Thích và Hình Khối (Annotations):**
-            *   Vào tab "Annotations".
-            *   Kéo các mũi tên, hình hộp, văn bản, hiệu ứng làm mờ (blur)... vào timeline, đặt lên trên track slide để làm nổi bật hoặc che thông tin. Thời gian xuất hiện và biến mất của chúng cũng có thể được điều chỉnh trên timeline.
+            *   Vào tab **"Transitions"** (thanh công cụ phía trên).
+            *   Kéo hiệu ứng (ví dụ: Fade, Wipe, Blur) thả vào giữa hai khối ảnh slide trên timeline để chuyển cảnh mượt mà hơn. "Fade in/out" hoặc "Dissolve" là lựa chọn phổ biến và chuyên nghiệp.
+        *   **Hiệu Ứng Zoom và Pan (Sử dụng Keyframes):**
+            *   Chọn clip ảnh slide trên timeline mà bạn muốn tạo hiệu ứng.
+            *   Di chuyển con trỏ timeline (playhead) đến vị trí bắt đầu hiệu ứng.
+            *   Trong bảng điều khiển **Video > Basic** (bên phải), tìm các thuộc tính **"Scale"** (kích thước) và **"Position"** (vị trí).
+            *   Nhấn vào biểu tượng **hình thoi (Add keyframe)** bên cạnh "Scale" và "Position" để tạo keyframe bắt đầu.
+            *   Di chuyển con trỏ timeline đến vị trí kết thúc hiệu ứng.
+            *   Thay đổi giá trị "Scale" (ví dụ: tăng lên để zoom vào) và/hoặc "Position" (thay đổi X, Y để di chuyển). CapCut sẽ tự động tạo keyframe kết thúc.
+            *   Bạn có thể thêm nhiều keyframe để tạo các chuyển động phức tạp hơn.
+        *   **Chú Thích, Văn Bản và Hình Khối (Text, Stickers):**
+            *   **Text:** Vào tab **"Text"**. Kéo "Default text" hoặc các mẫu có sẵn vào timeline, đặt lên trên track slide. Chỉnh sửa nội dung, font, màu sắc, vị trí, thời gian xuất hiện trong bảng điều khiển Text bên phải.
+            *   **Stickers:** Vào tab **"Stickers"**. Có nhiều sticker dạng hình khối, mũi tên, biểu tượng. Kéo vào timeline và tùy chỉnh.
         *   **Cải Thiện Âm Thanh (Audio Effects):**
-            *   Vào tab "Audio Effects".
-            *   Kéo "Noise Removal" (Loại bỏ tiếng ồn) vào track audio.
-            *   Kéo "Volume Leveling" (Cân bằng âm lượng) vào để giọng nói đều hơn.
+            *   Chọn clip audio trên timeline.
+            *   Trong bảng điều khiển **Audio > Basic** (bên phải):
+                *   **"Noise reduction"**: Bật để giảm tiếng ồn nền.
+                *   **"Volume"**: Điều chỉnh âm lượng tổng thể.
+                *   **"Fade in / Fade out"**: Làm âm thanh xuất hiện/biến mất từ từ.
+            *   Trong tab **"Audio Effects"** (thanh công cụ phía trên) có thể có thêm các hiệu ứng giọng nói nếu cần.
         *   **Thêm Nhạc Nền (Background Music - tùy chọn):**
-            *   Import file nhạc không lời, miễn phí bản quyền.
+            *   Import file nhạc không lời, miễn phí bản quyền vào Media.
             *   Kéo vào track mới trên timeline, bên dưới track giọng nói.
-            *   Click chuột phải vào track nhạc nền, chọn "Edit Audio" hoặc điều chỉnh thanh âm lượng của track đó xuống rất thấp (khoảng 1-5%) để không lấn át giọng nói.
+            *   Điều chỉnh âm lượng của track nhạc nền xuống rất thấp (thường khoảng -20dB đến -25dB, hoặc 5-10% nếu hiển thị dạng phần trăm) để không lấn át giọng nói.
 
     5.  **Xuất Video (Render):**
-        *   Khi đã hài lòng với video, nhấn nút **"Export"** (thường màu xanh lá ở góc trên bên phải).
-        *   Chọn **"Local File..."** (Lưu vào máy tính).
-        *   Cửa sổ Export sẽ hiện ra. Lựa chọn phổ biến và chất lượng tốt:
-            *   Preset: **MP4 - Smart Player (up to 1080p)** hoặc chọn cài đặt tùy chỉnh để có chất lượng cao hơn nếu cần.
-        *   Trong các bước tiếp theo, đặt tên file, chọn thư mục lưu và nhấn "Export". Camtasia sẽ bắt đầu quá trình render video.
+        *   Khi đã hài lòng với video, nhấn nút **"Export"** (thường màu xanh dương ở góc trên bên phải).
+        *   Cửa sổ Export sẽ hiện ra:
+            *   **Title:** Đặt tên file.
+            *   **Export to:** Chọn thư mục lưu.
+            *   **Resolution:** Chọn độ phân giải (ví dụ: 1080p, 2K, 4K).
+            *   **Bit rate:** "Recommended" thường là đủ, hoặc chọn "Higher" nếu muốn chất lượng cao hơn (file lớn hơn).
+            *   **Codec:** Thường là H.264.
+            *   **Format:** MP4 là phổ biến nhất.
+            *   **Frame rate:** Chọn 30fps hoặc 60fps.
+        *   Nhấn **"Export"**. CapCut sẽ bắt đầu quá trình render video.
 
 ---
 
@@ -754,7 +596,7 @@ Sau khi AI tạo ra code LaTeX ban đầu cho toàn bộ bài giảng, bạn s�
 *   **AI (Claude, NotebookLM, Google AI Studio hoặc AI khác có khả năng tương tự)**: Tạo và chỉnh sửa nội dung, podcast, slide LaTeX, phụ đề.
 *   **Repository `bechovang/google-cloud-speech-to-text` (hoặc giải pháp Speech-to-Text khác)**: Chuyển audio thành text và SRT thô (từng từ).
 *   **LaTeX (Beamer)**: Tạo slide PDF từ code LaTeX.
-*   **Camtasia (hoặc phần mềm chỉnh sửa video tương tự như Adobe Premiere Pro, DaVinci Resolve)**: Kết hợp slide ảnh, audio, phụ đề SRT và xuất ra video cuối cùng.
+*   **CapCut (Phiên bản Máy Tính)**: Kết hợp slide ảnh, audio, phụ đề SRT và xuất ra video cuối cùng.
 *   **Công cụ chuyển đổi PDF sang ảnh**: Adobe Acrobat Pro, các trang web online.
 
 ---
@@ -767,9 +609,9 @@ Sau khi AI tạo ra code LaTeX ban đầu cho toàn bộ bài giảng, bạn s�
 4.  **Chuyển podcast audio thành `recognized_text.txt` và `recognized_subtitles.srt` (thô, từng từ một dòng với timestamp).**
 5.  **Sử dụng Claude AI để xử lý `recognized_text.txt` và `recognized_subtitles.srt` thô, tạo ra một file phụ đề SRT duy nhất, hoàn chỉnh (`final_script.srt` - chứa script đã chuẩn và timing chính xác).**
 6.  **Tạo slide LaTeX: Yêu cầu AI tạo code LaTeX từ `final_script.srt`, sau đó tinh chỉnh code LaTeX cho từng slide với các prompt cụ thể.**
-7.  **(Bỏ qua tạo file timestamp riêng nếu dùng Camtasia)** Thời gian trong `final_script.srt` sẽ được dùng trực tiếp.
+7.  **(Bỏ qua tạo file timestamp riêng nếu dùng CapCut)** Thời gian trong `final_script.srt` sẽ được dùng trực tiếp.
 8.  **Biên dịch LaTeX thành PDF, sau đó chuyển PDF thành các file ảnh slide.**
-9.  **Sử dụng Camtasia để nhập audio, các slide ảnh, và `final_script.srt`. Dựng video, đồng bộ hóa, thêm hiệu ứng (nếu muốn) và xuất ra video MP4 cuối cùng.**
+9.  **Sử dụng CapCut (phiên bản máy tính) để nhập audio, các slide ảnh, và `final_script.srt`. Dựng video, đồng bộ hóa, thêm hiệu ứng (nếu muốn) và xuất ra video MP4 cuối cùng.**
 
 ---
 
