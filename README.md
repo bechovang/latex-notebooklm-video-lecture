@@ -210,6 +210,7 @@ Bạn là một chuyên gia LaTeX Beamer với khả năng linh hoạt trong vi�
 ### 2. Cấu trúc Slide:
 
 -   **Mốc thời gian:** Trước mỗi slide, thêm comment: `%% Chuyển slide: [timestamp từ SRT]`
+-   **Số thứ tự slide:** Trước mỗi `\begin{frame}`, thêm comment: `% SLIDE [số]: [tiêu đề slide]`
 -   **Tiêu đề slide:** Mỗi `\begin{frame}` phải có `\frametitle{...}` rõ ràng.
 -   **Layout columns:** Sử dụng `\begin{columns}[T]` để chia không gian cho text và hình ảnh/hình vẽ:
     
@@ -405,6 +406,7 @@ Bạn là một chuyên gia LaTeX Beamer với kỹ năng thượng thừa trong
 ### 2. Cấu trúc Slide:
 
 -   **Mốc thời gian:** Trước mỗi slide, thêm comment: `%% Chuyển slide: [timestamp từ SRT]`
+-   **Số thứ tự slide:** Trước mỗi `\begin{frame}`, thêm comment: `% SLIDE [số]: [tiêu đề slide]`
 -   **Tiêu đề slide:** Mỗi `\begin{frame}` phải có `\frametitle{...}` rõ ràng.
 -   **Layout columns:** Sử dụng `\begin{columns}[T]` để chia không gian cho text và hình vẽ LaTeX:
     
