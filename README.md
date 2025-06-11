@@ -493,6 +493,8 @@ Hãy tạo ra file `.tex` hoàn chỉnh, tự chứa, theo đúng template và y
 ## **6.2 chỉnh sửa thêm cho từng slide cụ thể.**
 Sau khi AI tạo ra code LaTeX ban đầu cho toàn bộ bài giảng, bạn sẽ xem xét và đưa các prompt sau để AI chỉnh sửa từng slide cụ thể:
 - Dùng [Qwen](https://chat.qwen.ai/)
+- sửa hoài ko đc thì kêu nó đơn giản lại slide đó
+- [tham khảo đoạn chat này]([url](https://chat.qwen.ai/s/630dbb38-dc33-4f1e-8699-4068e3b94be8?fev=0.0.114))
 - Dưới đây là 1 số ví dụ
 
 **Ví dụ 1 (Cho Slide cụ thể, ví dụ Slide 30 từ code AI tạo): Yêu cầu AI thay thế ảnh bằng hình vẽ LaTeX**
