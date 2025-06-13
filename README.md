@@ -92,44 +92,55 @@ Mục tiêu là sau 15 phút, học sinh không chỉ hiểu kiến thức mà c
     1.  Nội dung file `recognized_text.txt` (văn bản thô từ Bước 4).
     2.  Nội dung file `recognized_subtitles.srt` (phụ đề thô từng từ một với thông tin thời gian từ Bước 4).
 *   **Prompt Cho Claude AI Để Tạo Phụ Đề SRT Hoàn Chỉnh:**
-    ```text
-    Chào Claude, tôi có hai file từ quá trình speech-to-text và cần bạn giúp tạo ra một file phụ đề SRT cuối cùng, hoàn chỉnh.
 
-    **File 1: Văn bản thô (`recognized_text.txt`)**
-    Đây là toàn bộ nội dung văn bản được ghi lại từ audio:
+  ```
+   Bối cảnh: Bạn là một Trợ lý Chỉnh sửa Phụ đề chuyên nghiệp. Nhiệm vụ của bạn là nhận hai file dữ liệu thô từ quá trình chuyển đổi giọng nói thành văn bản và tạo ra một file phụ đề .srt cuối cùng, hoàn hảo về cả nội dung và kỹ thuật.
+   
+   Dữ liệu đầu vào:
+   File 1: Văn bản thô (recognized_text.txt)
+   Nội dung: Toàn bộ văn bản được ghi lại từ audio.
+   [Dán toàn bộ nội dung từ file recognized_text.txt vào đây]
+   Use code with caution.
+   
+   File 2: Phụ đề SRT thô (recognized_subtitles.srt)
+   Nội dung: Chứa từng từ riêng lẻ với timestamp chính xác.
+   [Dán toàn bộ nội dung từ file recognized_subtitles.srt vào đây]
+   Use code with caution.
+   
+   
+   Yêu cầu chi tiết:
+   Bước 1: Chỉnh sửa và Hoàn thiện Nội dung (Content Polishing)
+   - Sửa lỗi cơ bản: Sửa tất cả lỗi chính tả và ngữ pháp.
+   - Thêm dấu câu: Bổ sung dấu câu đầy đủ (dấu phẩy, dấu chấm, dấu hỏi,...) để câu văn rõ nghĩa và có nhịp điệu.
+   - Định dạng chuyên biệt:
+       - Toán học/Kỹ thuật: Viết lại các công thức cho dễ nhìn (ví dụ: "a bình phương" thành "a²", "vô hướng" thành vô hướng). In nghiêng hoặc đặt trong ngoặc kép các thuật ngữ quan trọng để nhấn mạnh (ví dụ: "không gian Hilbert", "đầy đủ").
+   - Làm mượt văn phong: Chuyển đổi văn nói (có thể lủng củng, lặp từ) thành văn viết mượt mà, trôi chảy, phù hợp cho việc đọc phụ đề. Có thể loại bỏ các từ đệm không cần thiết (như "thì", "là", "mà", "à", "ờm") nếu chúng không đóng góp vào ý nghĩa của câu.
+   
+   Bước 2: Tạo và Sắp xếp Phụ đề (Subtitle Assembly & Formatting)
+   - Ghép từ thành khối: Dựa vào nội dung đã chỉnh sửa ở Bước 1, hãy ghép các từ (cùng timestamp từ File 2) thành các câu hoặc cụm từ có nghĩa để tạo thành một khối phụ đề.
+   - Đồng bộ thời gian chính xác:
+       - Thời gian bắt đầu (start_time) của một khối phụ đề phải là start_time của từ đầu tiên trong khối đó.
+       - Thời gian kết thúc (end_time) của một khối phụ đề phải là end_time của từ cuối cùng trong khối đó.
+   - Quy tắc ngắt dòng và chia khối (Rất quan trọng):
+       - Độ dài dòng: Mỗi dòng không nên dài quá 45-50 ký tự.
+       - Số dòng mỗi khối: Mỗi khối phụ đề chỉ nên có tối đa 2 dòng.
+       - Ngắt tự nhiên: Ưu tiên ngắt dòng và chia khối tại các dấu câu (phẩy, chấm) hoặc giữa các cụm từ có nghĩa để đảm bảo tính dễ đọc.
+   
+   Bước 3: Kiểm tra và Xuất kết quả (Final Check & Output)
+   Trước khi đưa ra kết quả cuối cùng, hãy thực hiện checklist sau:
+   [ ] KIỂM TRA ĐỊNH DẠNG THỜI GIAN: TUÂN THỦ NGHIÊM NGẶT định dạng hh:mm:ss,ms (ví dụ: 00:01:37,399). Tuyệt đối không được nhầm lẫn phút thành giờ. Phải đảm bảo rằng sau 00:00:59,xxx là 00:01:00,xxx, sau 00:59:59,xxx là 01:00:00,xxx.
+   [ ] KIỂM TRA THỜI LƯỢNG TỔNG: Nếu thông tin thời lượng tổng được cung cấp, hãy so sánh nó với timestamp cuối cùng bạn tạo ra. Nếu có sự chênh lệch lớn (ví dụ: audio dài 6 phút nhưng phụ đề chỉ đến 1 phút 37 giây), hãy thông báo cho tôi về sự thiếu hụt dữ liệu này và chỉ xử lý phần dữ liệu đã được cung cấp.
+   [ ] KIỂM TRA SỐ THỨ TỰ: Đảm bảo số thứ tự của các khối phụ đề là liên tục, bắt đầu từ 1.
+   
+   Đầu ra:
+   Chỉ cung cấp duy nhất nội dung của file SRT mới đã được hoàn thiện. Không thêm bất kỳ lời dẫn hay giải thích nào khác.
 
-    [Dán toàn bộ nội dung từ file recognized_text.txt vào đây]
-
-
-    **File 2: Phụ đề SRT thô (`recognized_subtitles.srt`)**
-    File này chứa từng từ riêng lẻ (mỗi dòng một từ) cùng với thông tin thời gian tương ứng:
-
-    [Dán toàn bộ nội dung từ file recognized_subtitles.srt vào đây, đảm bảo định dạng là mỗi từ một dòng với timestamp]
-
-
-    **Yêu cầu của tôi:**
-
-    1. **Chỉnh sửa và cải thiện nội dung văn bản** từ File 1:
-       - Sửa lỗi chính tả, ngữ pháp.
-       - Thêm dấu câu đầy đủ và chính xác.
-       - Viết lại các công thức toán học cho dễ nhìn (ví dụ: "a bình phương" thành "a²", ...).
-       - Đảm bảo câu văn mạch lạc, trôi chảy và dễ hiểu như một script giảng dạy chuẩn.
-
-    2. **Tạo file phụ đề SRT mới** dựa trên:
-       - Nội dung văn bản đã được chỉnh sửa ở bước 1.
-       - Thông tin thời gian từ File 2 (thời gian của từng từ).
-       
-    3. **Sắp xếp lại phụ đề SRT** một cách hợp lý:
-       - Ghép các từ thành câu hoàn chỉnh.
-       - Chia dòng phụ đề theo độ dài phù hợp (không quá dài, dễ đọc).
-       - Đảm bảo thời gian bắt đầu và kết thúc của mỗi dòng phụ đề khớp chính xác với nội dung câu nói, dựa trên thời gian của các từ gốc.
-       - Ưu tiên sự tự nhiên và dễ đọc của phụ đề.
-
-    **Hãy cung cấp cho tôi chỉ nội dung file phụ đề SRT mới, đã được cải thiện (dưới dạng định dạng SRT chuẩn).**
 
     Cảm ơn bạn!
-    ```
-*   **Đầu ra mong đợi từ Claude AI**:
+    
+```
+    
+*   **Đầu ra mong đợi từ  AI**:
     *   Một đoạn văn bản chứa **nội dung file phụ đề SRT mới, đã được cải thiện và hoàn chỉnh**. Ví dụ: `final_script.srt`. File SRT này sẽ là nguồn chính cho cả script giảng dạy và thông tin thời gian.
     *   [chuyển sang định dạng ass cho ít lỗi](https://gotranscript.com/subtitle-converter)
 
